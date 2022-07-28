@@ -1,4 +1,6 @@
-
+.DS_Store
+.env
+.idea
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -7,6 +9,7 @@
 /public/bundles/
 /var/
 /vendor/
+/node_modules/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
