@@ -46,6 +46,9 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $numeroPermis = null;
 
+    #[ORM\OneToOne(mappedBy: 'ClientID', cascade: ['persist', 'remove'])]
+    private ?Location $locationID = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -187,4 +190,22 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getLocationID(): ?Location
+    {
+        return $this->locationID;
+    }
+
+    public function setLocationID(Location $locationID): self
+    {
+        // set the owning side of the relation if necessary
+        if ($locationID->getClientID() !== $this) {
+            $locationID->setClientID($this);
+        }
+
+        $this->locationID = $locationID;
+
+        return $this;
+    }
+
 }

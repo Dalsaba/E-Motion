@@ -38,6 +38,10 @@ class Vehicule
     #[ORM\Column]
     private ?int $prix_achat = null;
 
+    #[ORM\OneToOne(mappedBy: 'VehiculeID', cascade: ['persist', 'remove'])]
+    private ?Location $locationID = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +139,23 @@ class Vehicule
     public function setPrixAchat(int $prix_achat): self
     {
         $this->prix_achat = $prix_achat;
+
+        return $this;
+    }
+
+    public function getLocationID(): ?Location
+    {
+        return $this->locationID;
+    }
+
+    public function setLocationID(Location $locationID): self
+    {
+        // set the owning side of the relation if necessary
+        if ($locationID->getVehiculeID() !== $this) {
+            $locationID->setVehiculeID($this);
+        }
+
+        $this->locationID = $locationID;
 
         return $this;
     }
