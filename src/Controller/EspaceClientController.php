@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EspaceClientController extends AbstractController
 {
-    #[Route('/espace/client', name: 'app_espace_client')]
+    #[Route('/espace_client', name: 'app_espace_client')]
     public function index(): Response
     {
         return $this->render('espace_client/index.html.twig', [
