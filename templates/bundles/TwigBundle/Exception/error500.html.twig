@@ -1,1 +1,10 @@
- 
+{# templates/bundles/TwigBundle/Exception/error500.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Erreur côté serveur</h1>
+
+    <p>
+        La page demandée n'a pas pu être localisée. Vérifiez que l'URL n'est pas mal orthographiée ou <a href="/">retournez à l'accueil</a>.
+    </p>
+{% endblock %}
