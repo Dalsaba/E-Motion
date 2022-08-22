@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="text-6xl">{{ vehicule.marque }}</h1>
+    <table class="table w-full">
+        <thead>
+        </thead>
+        <tbody>
+        <tr class="flex">
+            <td class="w-4/5 grid justify-items-center flex items-center">
+                Modèle : {{ vehicule.modele }} <br/>
+                N° serie : {{ vehicule.numSerie }} <br/>
+                Couleur: {{ vehicule.couleur }} <br/>
+                Nb de kilomètres : {{ vehicule.nbKilometre }} <br/>
+                Prix: {{ vehicule.prixAchat }} <br/>
+            </td>
+            </td>
+            <td class=" w-1/3">
+            <div class="">
+                                    <img
+                                         src="{{ asset ('picture/picture.png') }}"
+                                         alt="i"
+                                         style="">
+            </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    {% endblock %}

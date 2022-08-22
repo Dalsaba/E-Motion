@@ -3,13 +3,33 @@
 {% block title %}Accueil | E-Motion{% endblock %}
 
 {% block body %}
-<div>
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div >
+        <h1 class="text-6xl"> Réservez maintenant</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/lucycorreia-lopes/IdeaProjects/E-Motion/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/lucycorreia-lopes/IdeaProjects/E-Motion/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>
-    </ul>
-</div>
+        {% for v in vehicule %}
+            <table class="table w-full border-4 border-sky-300">
+                <thead>
+                    <tr class="min-w-full border-4 border-red-300">
+                        <th class="border-4 border-sky-300">{{ 'Image' }}</th>
+                        <th class="border-4 border-sky-300 ">{{ 'Détails' | trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td class="bg-amber-200 text-amber-900 text-lg rounded-xl my-8">
+                            <a style="display:block" href="{{path('vehicule_detail', {'id' : v.id})}}">
+                                <div class="font-bold ">{{ v.marque }} - {{v.dateAchat | date('Y')}}  </div><br/>
+                                {{ v.modele }} <br/>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+
+    </div>
+
+
+
 {% endblock %}

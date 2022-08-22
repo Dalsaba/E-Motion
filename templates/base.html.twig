@@ -19,9 +19,9 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
-        <header class="flex flex-col px-5 py-4 gap-y-4">
-            <nav>
+    <body class="height: 100%" >
+        <header class="bg-orange-500 h-32 flex items-center grid justify-items-center">
+            <nav class="">
                 <ul class="flex gap-x-6">
                     <li><a href="{{ path('app_default') }}" class="text-blue-600 hover:text-blue-500">Accueil</a></li>
                     <li><a href="{{ path('app_espace_client') }}" class="text-blue-600 hover:text-blue-500">Espace client</a></li>
@@ -34,9 +34,14 @@
                 {% endfor %}
             {% endfor %}
         </header>
+        <div class="bg-orange-500/50 grid justify-items-center">
+            <p class="text-white">{{ controller_name }}</p>
+        </div>
 
-        <main class="container px-4">
+        <main class="grid justify-items-center w-full">
             {% block body %}{% endblock %}
         </main>
+
     </body>
+
 </html>
