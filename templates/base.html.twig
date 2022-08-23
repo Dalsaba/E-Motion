@@ -21,20 +21,10 @@
         {% endblock %}
     </head>
     <body class="height: 100%" >
-        <header class="bg-orange-500 h-32 flex items-center justify-center">
-            <nav class="">
-                <ul class="flex gap-x-6">
-                    <li><a href="{{ path('app_default') }}" class="text-blue-600 hover:text-blue-500">Accueil</a></li>
-                    <li><a href="{{ path('app_espace_client') }}" class="text-blue-600 hover:text-blue-500">Espace client</a></li>
-                </ul>
-            </nav>
+        {% block header %}
+            {{ include('components/_header.html.twig') }}
+        {% endblock %}
 
-            {% for type, messages in app.flashes %}
-                {% for m in messages %}
-                    <p class="py-3 px-5 border border-solid border-transparent rounded {{ type }}">{{ m }}</p>
-                {% endfor %}
-            {% endfor %}
-        </header>
         <div class="bg-orange-500/50 grid justify-items-center">
             <p class="text-white">{{ controller_name }}</p>
         </div>
@@ -46,7 +36,6 @@
         {% block footer %}
             {{ include('components/_footer.html.twig') }}
         {% endblock %}
-
     </body>
 
 </html>
