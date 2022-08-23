@@ -1,78 +1,95 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mentions légales | E-Motion{% endblock %}
+{% block page_title 'Mentions légales' %}
+{% block canonical_url url('app_mentions_legales') %}
 
 {% block body %}
     <section class="py-5">
-        <div class="flex flex-col items-center justify-center mb-10">
-            <h1 class="text-6xl mb-4 font-bold">Mentions légales</h1>
-            <span class="text-2xl">En vigueur au 26/07/2022</span>
+        <div class="flex flex-col items-center justify-center mx-auto mb-10">
+            <h1 class="text-6xl mb-4 font-bold">
+                Mentions légales
+            </h1>
+            <span class="text-2xl">
+                En vigueur au 26/07/2022
+            </span>
         </div>
-        <div class="mx-auto max-w-screen-lg">
-            <p class="mb-5">
-                Conformément aux dispositions des Articles 6-III et 19 de la Loi n°2004-575 du 21 juin 2004 pour la Confiance dans l’économie numérique, dite L.C.E.N., il est porté à la connaissance des utilisateurs et visiteurs, ci-après l""<strong>Utilisateur</strong>", du site <a class="text-blue-600 hover:text-blue-500" href="{{ accueil_url }}">{{ accueil_url }}</a>, ci-après le "<strong>Site</strong>", les présentes mentions légales.
-            </p>
-            <p class="mb-5">
-                La connexion et la navigation sur le Site par l’Utilisateur implique acceptation intégrale et sans réserve des présentes mentions légales.
-            </p>
-            <p>Ces dernières sont accessibles sur le Site à la rubrique « Mentions légales ».</p>
-        </div>
-        <div class="mx-auto max-w-screen-lg">
-            <h3 class="text-3xl uppercase font-bold my-6">Article 1 - L'éditeur</h3>
-            <p>
-                L'édition du Site est assurée par E-Motion SAS au capital de _______________ euros, immatriculée au Registre du Commerce et des Sociétés de Montévrain sous le numéro 411207012 dont le siègesocial est situé au 14 Avenue de l'Europe, 77144 Montévrain,
-            </p>
-            <p>
-                Numéro de téléphone <a class="text-blue-600 hover:text-blue-500" href="tel:0669282512">0669282512</a>,
-            </p>
-            <p>
-                Adresse e-mail : <a class="text-blue-600 hover:text-blue-500" href="mailto:l.correialopes@ecole-ipssi.net">l.correialopes@ecole-ipssi.net</a>.
-            </p>
-            <p>
-                N° de TVA intracommunautaire : FR74411207012
-            </p>
-            <p>
-                Le Directeur de la publication est _______________
-            </p>
-            <p>
-                ci-après l'"<strong>Editeur</strong>".
-            </p>
-        </div>
-        <div class="mx-auto max-w-screen-lg">
-            <h3 class="text-3xl uppercase font-bold my-6">Article 2 - L'hébergeur</h3>
-            <p>
-            L'hébergeur du Site est la société _______________, dont le siège social est situé au _______________ , avec le <strong>numéro de téléphone</strong> : _______________ + <strong>adresse mail de contact</strong>
-            </p>
-        </div>
-        <div class="mx-auto max-w-screen-lg">
-            <h3 class="text-3xl uppercase font-bold my-6">Article 3 - Accès au site</h3>
-            <p class="mb-5">
-                Le Site est accessible en tout endroit, 7j/7, 24h/24 sauf cas de force majeure, interruption programmée ou non et pouvant découlant d’une nécessité de maintenance.
-            </p>
-            <p>
-                En cas de modification, interruption ou suspension du Site, l'Editeur ne saurait être tenu responsable.
-            </p>
-        </div>
-        <div class="mx-auto max-w-screen-lg">
-            <h3 class="text-3xl uppercase font-bold my-6">Article 4 - Collecte des données</h3>
-            <p class="mb-5">
-                Le Site assure à l'Utilisateur une collecte et un traitement d'informations personnelles dans le respect de la vie privée conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés.
-            </p>
-            <p class="mb-2.5">
-                En vertu de la loi Informatique et Libertés, en date du 6 janvier 1978, l'Utilisateur dispose d'un droit d'accès, de rectification, de suppression et d'opposition de ses données personnelles. L'Utilisateur exerce ce droit :
-            </p>
-            <ul class="mb-5 list-disc pl-4">
-                <li>via un formulaire de contact ;</li>
-                <li>via son espace personnel ;</li>
-            </ul>
-            <p class="mb-5">
-                Toute utilisation, reproduction, diffusion, commercialisation, modification de toute ou partie du Site, sans autorisation de l’Editeur est prohibée et pourra entraînée des actions et poursuites judiciaires telles que notamment prévues par le Code de la propriété intellectuelle et le Code civil.
-            </p>
-        </div>
-        <div>
-            <p>
-                Pour plus d’informations, se reporter aux CGV du site <a class="text-blue-600 hover:text-blue-500" href="{{ accueil_url }}">{{ accueil_url }}</a> accessible à la rubrique "CGV"
-            </p>
-        </div>
+        <article class="mx-auto max-w-screen-lg">
+            <div>
+                <p class="mb-5">
+                    Conformément aux dispositions des Articles 6-III et 19 de la Loi n°2004-575 du 21 juin 2004 pour la Confiance dans l’économie numérique, dite L.C.E.N., il est porté à la connaissance des utilisateurs et visiteurs, ci-après l""<strong>Utilisateur</strong>", du site <a class="text-blue-600 hover:text-blue-500" href="{{ accueil_url }}">{{ accueil_url }}</a>, ci-après le "<strong>Site</strong>", les présentes mentions légales.
+                </p>
+                <p class="mb-5">
+                    La connexion et la navigation sur le Site par l’Utilisateur implique acceptation intégrale et sans réserve des présentes mentions légales.
+                </p>
+                <p>
+                    Ces dernières sont accessibles sur le Site à la rubrique « Mentions légales ».
+                </p>
+            </div>
+            <div>
+                <h3 class="text-3xl uppercase font-bold my-6">
+                    Article 1 - L'éditeur
+                </h3>
+                <p>
+                    L'édition du Site est assurée par E-Motion SAS au capital de _______________ euros, immatriculée au Registre du Commerce et des Sociétés de Montévrain sous le numéro 411207012 dont le siègesocial est situé au 14 Avenue de l'Europe, 77144 Montévrain,
+                </p>
+                <p>
+                    Numéro de téléphone <a class="text-blue-600 hover:text-blue-500" href="tel:0669282512">0669282512</a>,
+                </p>
+                <p>
+                    Adresse e-mail : <a class="text-blue-600 hover:text-blue-500" href="mailto:l.correialopes@ecole-ipssi.net">l.correialopes@ecole-ipssi.net</a>.
+                </p>
+                <p>
+                    N° de TVA intracommunautaire : FR74411207012
+                </p>
+                <p>
+                    Le Directeur de la publication est _______________
+                </p>
+                <p>
+                    ci-après l'"<strong>Editeur</strong>".
+                </p>
+            </div>
+            <div>
+                <h3 class="text-3xl uppercase font-bold my-6">
+                    Article 2 - L'hébergeur
+                </h3>
+                <p>
+                    L'hébergeur du Site est la société _______________, dont le siège social est situé au _______________ , avec le <strong>numéro de téléphone</strong> : _______________ + <strong>adresse mail de contact</strong>
+                </p>
+            </div>
+            <div>
+                <h3 class="text-3xl uppercase font-bold my-6">
+                    Article 3 - Accès au site
+                </h3>
+                <p class="mb-5">
+                    Le Site est accessible en tout endroit, 7j/7, 24h/24 sauf cas de force majeure, interruption programmée ou non et pouvant découlant d’une nécessité de maintenance.
+                </p>
+                <p>
+                    En cas de modification, interruption ou suspension du Site, l'Editeur ne saurait être tenu responsable.
+                </p>
+            </div>
+            <div>
+                <h3 class="text-3xl uppercase font-bold my-6">
+                    Article 4 - Collecte des données
+                </h3>
+                <p class="mb-5">
+                    Le Site assure à l'Utilisateur une collecte et un traitement d'informations personnelles dans le respect de la vie privée conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés.
+                </p>
+                <p class="mb-2.5">
+                    En vertu de la loi Informatique et Libertés, en date du 6 janvier 1978, l'Utilisateur dispose d'un droit d'accès, de rectification, de suppression et d'opposition de ses données personnelles. L'Utilisateur exerce ce droit :
+                </p>
+                <ul class="mb-5 list-disc pl-4">
+                    <li>via un formulaire de contact ;</li>
+                    <li>via son espace personnel ;</li>
+                </ul>
+                <p class="mb-5">
+                    Toute utilisation, reproduction, diffusion, commercialisation, modification de toute ou partie du Site, sans autorisation de l’Editeur est prohibée et pourra entraînée des actions et poursuites judiciaires telles que notamment prévues par le Code de la propriété intellectuelle et le Code civil.
+                </p>
+            </div>
+            <div>
+                <p>
+                    Pour plus d’informations, se reporter aux CGV du site <a class="text-blue-600 hover:text-blue-500" href="{{ accueil_url }}">{{ accueil_url }}</a> accessible à la rubrique "CGV"
+                </p>
+            </div>
+        </article>
     </section>
 {% endblock %}
