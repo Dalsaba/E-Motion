@@ -2,10 +2,19 @@
     <p>© {{ "now"|date("Y") }} E-Motion. Tous droits réservés.</p>
     <ul class="flex">
         <li class="mx-[5px]">
-            <a class="text-blue-600 hover:text-blue-500 p-2" href="{{ path('app_mentions_legales') }}">Mentions légales</a>
+            <a class="text-blue-600 hover:text-blue-500 p-2" href="{{ path('app_mentions_legales') }}">
+                Mentions légales
+            </a>
         </li>
         <li class="mx-[5px]">
-            <a class="text-blue-600 hover:text-blue-500 p-2" href="{{ path('app_cgv') }}">Conditions générales de vente</a>
+            <a class="text-blue-600 hover:text-blue-500 p-2" href="{{ path('app_politique_confidentialite') }}">
+                Politique de confidentialité
+            </a>
+        </li>
+        <li class="mx-[5px]">
+            <a class="text-blue-600 hover:text-blue-500 p-2" href="{{ path('app_cgv') }}">
+                Conditions générales de vente
+            </a>
         </li>
     </ul>
 </footer>
