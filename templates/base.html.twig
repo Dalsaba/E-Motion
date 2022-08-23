@@ -1,3 +1,4 @@
+{% set accueil_url = url('app_default')|trim('/') %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +21,7 @@
         {% endblock %}
     </head>
     <body class="height: 100%" >
-        <header class="bg-orange-500 h-32 flex items-center grid justify-items-center">
+        <header class="bg-orange-500 h-32 flex items-center justify-center">
             <nav class="">
                 <ul class="flex gap-x-6">
                     <li><a href="{{ path('app_default') }}" class="text-blue-600 hover:text-blue-500">Accueil</a></li>
@@ -41,6 +42,10 @@
         <main class="grid justify-items-center w-full">
             {% block body %}{% endblock %}
         </main>
+
+        {% block footer %}
+            {{ include('components/_footer.html.twig') }}
+        {% endblock %}
 
     </body>
 
