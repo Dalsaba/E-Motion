@@ -1,16 +1,34 @@
 {% set accueil_url = url('app_default')|trim('/') %}
+{% set has_role_user = is_granted('ROLE_USER') %}
+{% set has_role_proprietaire = is_granted('ROLE_PROPRIETAIRE') %}
+{% set has_role_admin = is_granted('ROLE_ADMIN') %}
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <meta property="title" content="E-Motion">
-        <meta name="description" content="Hello world!">
-        <meta name="keywords" content="E-Motion, location, véhicule, électrique, voiture, scooter" />
-        <meta property="og:site_name" content="E-Motion">
-        <meta property="og:locale" content="fr_FR">
-        <meta property="og:type" content="website" />
-        <title>{% block title %}E-Motion{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {% block meta %}
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>{% block title %}{% block page_title '' %} | {% block app_title 'E-Motion' %}{% endblock %}</title>
+            <meta property="title" content="E-Motion">
+            <meta name="description" content="{% block meta_description %}Hello world!{% endblock %}" />
+            <link rel="canonical" href="{% block canonical_url accueil_url %}" />
+            <meta name="theme-color" content="#f97316">
+            <meta name="keywords" content="E-Motion, location, véhicule, électrique, voiture, scooter" />
+            {% block open_graph %}
+                <meta property="og:locale" content="fr_FR">
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="{% block open_graph_title block('title') %}" />
+                <meta property="og:description" content="{% block open_graph_description block('meta_description') %}" />
+                <meta property="og:url" content="{% block open_graph_url block('canonical_url') %}" />
+                <meta property="og:site_name" content="{% block open_graph_site_name 'E-Motion' %}">
+            {% endblock %}
+        {% endblock %}
+
+        {% block favicons %}
+            <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {% endblock %}
+
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
