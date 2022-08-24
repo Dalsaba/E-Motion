@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VehiculeClasseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VehiculeClasseRepository::class)]
@@ -18,6 +20,14 @@ class VehiculeClasse
 
     #[ORM\Column]
     private ?int $Prix = null;
+
+    #[ORM\OneToMany(mappedBy: 'Classe', targetEntity: Vehicule::class)]
+    private Collection $vehicules;
+
+    public function __construct()
+    {
+        $this->vehicules = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,6 +54,36 @@ class VehiculeClasse
     public function setPrix(int $Prix): self
     {
         $this->Prix = $Prix;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Vehicule>
+     */
+    public function getVehicules(): Collection
+    {
+        return $this->vehicules;
+    }
+
+    public function addVehicule(Vehicule $vehicule): self
+    {
+        if (!$this->vehicules->contains($vehicule)) {
+            $this->vehicules->add($vehicule);
+            $vehicule->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVehicule(Vehicule $vehicule): self
+    {
+        if ($this->vehicules->removeElement($vehicule)) {
+            // set the owning side to null (unless already changed)
+            if ($vehicule->getClasse() === $this) {
+                $vehicule->setClasse(null);
+            }
+        }
 
         return $this;
     }

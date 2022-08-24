@@ -43,6 +43,9 @@ class Vehicule
     #[ORM\OneToOne(mappedBy: 'VehiculeID', cascade: ['persist', 'remove'])]
     private ?Location $locationID = null;
 
+    #[ORM\ManyToOne(inversedBy: 'vehicules')]
+    private ?VehiculeClasse $Classe = null;
+
 
     public function __construct()
     {
@@ -164,6 +167,18 @@ class Vehicule
         }
 
         $this->locationID = $locationID;
+
+        return $this;
+    }
+
+    public function getClasse(): ?VehiculeClasse
+    {
+        return $this->Classe;
+    }
+
+    public function setClasse(?VehiculeClasse $Classe): self
+    {
+        $this->Classe = $Classe;
 
         return $this;
     }
