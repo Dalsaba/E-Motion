@@ -71,8 +71,8 @@ class DefaultController extends AbstractController
         // si le formulaire a été soumis
         if ($form-> isSubmitted()) {
             $resa-> setPrix(3);
-            $resa-> setClientID($c);
-            $resa-> setVehiculeID($vehicule);
+            $resa-> addClientID($c);
+            $resa-> addVehiculeID($vehicule);
 
             if ($form->isValid()) {
                 // on sauvegarde en base

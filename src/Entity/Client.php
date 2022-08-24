@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -46,8 +48,14 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $numeroPermis = null;
 
-    #[ORM\OneToOne(mappedBy: 'ClientID', cascade: ['persist', 'remove'])]
-    private ?Location $locationID = null;
+    #[ORM\ManyToMany(targetEntity: Location::class, mappedBy: 'ClientID')]
+    private Collection $locations;
+
+    public function __construct()
+    {
+        $this->locations = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -191,25 +199,36 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLocationID(): ?Location
-    {
-        return $this->locationID;
-    }
-
-    public function setLocationID(Location $locationID): self
-    {
-        // set the owning side of the relation if necessary
-        if ($locationID->getClientID() !== $this) {
-            $locationID->setClientID($this);
-        }
-
-        $this->locationID = $locationID;
-
-        return $this;
-    }
 
 //    public function __toString(){
 //        return ($this->nom) ;
 //    }
+
+/**
+ * @return Collection<int, Location>
+ */
+public function getLocations(): Collection
+{
+    return $this->locations;
+}
+
+public function addLocation(Location $location): self
+{
+    if (!$this->locations->contains($location)) {
+        $this->locations->add($location);
+        $location->addClientID($this);
+    }
+
+    return $this;
+}
+
+public function removeLocation(Location $location): self
+{
+    if ($this->locations->removeElement($location)) {
+        $location->removeClientID($this);
+    }
+
+    return $this;
+}
 
 }

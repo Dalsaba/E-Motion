@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LocationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,14 +15,6 @@ class Location
     #[ORM\GeneratedValue]
     #[ORM\Column()]
     private ?int $id = null;
-
-    #[ORM\OneToOne(inversedBy: 'locationID', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Client $ClientID = null;
-
-    #[ORM\OneToOne(inversedBy: 'locationID', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Vehicule $VehiculeID = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $DateDeDebut = null;
@@ -34,33 +28,21 @@ class Location
     #[ORM\Column]
     private ?int $Prix = null;
 
+    #[ORM\ManyToMany(targetEntity: Client::class, inversedBy: 'locations')]
+    private Collection $ClientID;
+
+    #[ORM\ManyToMany(targetEntity: Vehicule::class, inversedBy: 'locations')]
+    private Collection $VehiculeID;
+
+    public function __construct()
+    {
+        $this->ClientID = new ArrayCollection();
+        $this->VehiculeID = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getClientID(): ?Client
-    {
-        return $this->ClientID;
-    }
-
-    public function setClientID(Client $ClientID): self
-    {
-        $this->ClientID = $ClientID;
-
-        return $this;
-    }
-
-    public function getVehiculeID(): ?Vehicule
-    {
-        return $this->VehiculeID;
-    }
-
-    public function setVehiculeID(Vehicule $VehiculeID): self
-    {
-        $this->VehiculeID = $VehiculeID;
-
-        return $this;
     }
 
     public function getDateDeDebut(): ?\DateTimeInterface
@@ -113,6 +95,54 @@ class Location
 
     public function __toString(){
         return string($this->id) ;
+    }
+
+    /**
+     * @return Collection<int, Client>
+     */
+    public function getClientID(): Collection
+    {
+        return $this->ClientID;
+    }
+
+    public function addClientID(Client $clientID): self
+    {
+        if (!$this->ClientID->contains($clientID)) {
+            $this->ClientID->add($clientID);
+        }
+
+        return $this;
+    }
+
+    public function removeClientID(Client $clientID): self
+    {
+        $this->ClientID->removeElement($clientID);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Vehicule>
+     */
+    public function getVehiculeID(): Collection
+    {
+        return $this->VehiculeID;
+    }
+
+    public function addVehiculeID(Vehicule $vehiculeID): self
+    {
+        if (!$this->VehiculeID->contains($vehiculeID)) {
+            $this->VehiculeID->add($vehiculeID);
+        }
+
+        return $this;
+    }
+
+    public function removeVehiculeID(Vehicule $vehiculeID): self
+    {
+        $this->VehiculeID->removeElement($vehiculeID);
+
+        return $this;
     }
 
 }

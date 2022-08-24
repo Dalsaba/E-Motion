@@ -40,16 +40,17 @@ class Vehicule
     #[ORM\Column]
     private ?int $prix_achat = null;
 
-    #[ORM\OneToOne(mappedBy: 'VehiculeID', cascade: ['persist', 'remove'])]
-    private ?Location $locationID = null;
-
     #[ORM\ManyToOne(inversedBy: 'vehicules')]
     private ?VehiculeClasse $Classe = null;
+
+    #[ORM\ManyToMany(targetEntity: Location::class, mappedBy: 'VehiculeID')]
+    private Collection $locations;
 
 
     public function __construct()
     {
         $this->contenuPaniers = new ArrayCollection();
+        $this->locations = new ArrayCollection();
     }
 
 
@@ -154,23 +155,6 @@ class Vehicule
         return $this;
     }
 
-    public function getLocationID(): ?Location
-    {
-        return $this->locationID;
-    }
-
-    public function setLocationID(Location $locationID): self
-    {
-        // set the owning side of the relation if necessary
-        if ($locationID->getVehiculeID() !== $this) {
-            $locationID->setVehiculeID($this);
-        }
-
-        $this->locationID = $locationID;
-
-        return $this;
-    }
-
     public function getClasse(): ?VehiculeClasse
     {
         return $this->Classe;
@@ -179,6 +163,33 @@ class Vehicule
     public function setClasse(?VehiculeClasse $Classe): self
     {
         $this->Classe = $Classe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Location>
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations->add($location);
+            $location->addVehiculeID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        if ($this->locations->removeElement($location)) {
+            $location->removeVehiculeID($this);
+        }
 
         return $this;
     }
