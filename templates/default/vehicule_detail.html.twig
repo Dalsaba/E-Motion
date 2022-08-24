@@ -13,6 +13,9 @@
                 Couleur: {{ vehicule.couleur }} <br/>
                 Nb de kilomètres : {{ vehicule.nbKilometre }} <br/>
                 Prix: {{ vehicule.prixAchat }} <br/>
+                <a href="{{ path('reservation', {'id' : vehicule.id}) }}" class="btn btn-primary">
+                    {{'Louer' | trans}}
+                </a>
             </td>
             </td>
             <td class=" w-1/3">
@@ -26,4 +29,6 @@
         </tr>
         </tbody>
     </table>
+
+
     {% endblock %}

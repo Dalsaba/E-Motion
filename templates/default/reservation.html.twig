@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="text-6xl">Faites votre reservation</h1>
+    <p> {{ vehicule.marque }}</p>
+{#    <h2>{{'Produits.Modifier' | trans}}</h2>#}
+    {{ form(ajout) }}
+
+{% endblock %}

@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
+use App\Entity\Location;
 use App\Entity\Vehicule;
+use App\Form\LocationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class DefaultController extends AbstractController
@@ -38,6 +42,66 @@ class DefaultController extends AbstractController
         return $this->render('default/vehicule_detail.html.twig', [
             'controller_name' => 'VehiculeDetail',
             'vehicule'=> $vehicule,
+
+        ]);
+    }
+
+    #[Route('/reservation/{id}', name: 'reservation')]
+    public function reservation (Vehicule $vehicule = null, Client $c = null, ManagerRegistry $doctrine, Request $request): Response
+    {
+
+        if ($vehicule == null) {
+            $this-> addFlash('danger', 'Article introuvable');
+
+            return $this -> redirectToRoute('app_default');
+        }
+
+        //connexion  à la base
+        $em = $doctrine ->getManager() ;
+
+        $c = $em -> getRepository(Client::class)-> findOneBy(['nom' => 'CL']);
+
+
+        // création d'un objet vide pour le form
+        $resa = new Location();
+        //creation d'un formaulaire sur le modele de CategorieType
+        $form = $this->createForm(LocationType::class, $resa);
+        //Demande au formaulaire d'analyser la requete HTTP
+        $form -> handleRequest($request);
+        // si le formulaire a été soumis
+        if ($form-> isSubmitted()) {
+            $resa-> setPrix(3);
+            $resa-> setClientID($c);
+            $resa-> setVehiculeID($vehicule);
+
+            if ($form->isValid()) {
+                // on sauvegarde en base
+                $em -> persist($resa);
+
+                // execution de la sauvegardre (equivalent du prepare et execute en PDO)
+                $em -> flush();
+
+                $this-> addFlash('sucess', 'Location effectuée ajoutée');
+            }
+
+
+
+        }
+
+        //recupération de la table Location - a placer apres a sauvegarde
+        $reservation = $em -> getRepository(Location::class)-> findAll();
+
+
+
+
+
+
+        return $this->render('default/reservation.html.twig', [
+            'controller_name' => 'VehiculeDetail',
+            'vehicule'=> $vehicule,
+            'reservation' => $reservation,
+            'ajout'=> $form -> createView() // retourne la version html du form
+
 
         ]);
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VehiculeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,6 +42,12 @@ class Vehicule
 
     #[ORM\OneToOne(mappedBy: 'VehiculeID', cascade: ['persist', 'remove'])]
     private ?Location $locationID = null;
+
+
+    public function __construct()
+    {
+        $this->contenuPaniers = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
