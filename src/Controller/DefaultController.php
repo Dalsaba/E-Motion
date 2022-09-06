@@ -57,6 +57,19 @@ class DefaultController extends AbstractController
             return $this -> redirectToRoute('app_default');
         }
 
+        $stripe = new \Stripe\StripeClient(
+
+            'sk_test_51LPM2ZHIeun4UQSx1c8tVHphOFAeC7F8vQDgcWatwsACH4BCirrbC9APtRIvNpY6io7mnme5561jy85EpBY2pu3C00N2DCcB9g'
+        );
+
+        $stripe->paymentLinks->create([
+            'line_items' => [[
+                'price' => 'price_1LabVtHIeun4UQSxJphF25Wg',
+                'quantity' => 2,
+                ]],
+                ]);
+
+
         //connexion  à la base
         $em = $doctrine ->getManager() ;
 
