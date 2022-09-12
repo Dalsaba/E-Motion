@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Misd\PhoneNumberBundle\Validator\Constraints as MisdAssert;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client implements UserInterface, PasswordAuthenticatedUserInterface
@@ -21,7 +22,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type : 'json')]
     private array $roles = [];
 
     /**
@@ -45,8 +46,8 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $telephone = null;
 
-    #[ORM\Column]
-    private ?int $numeroPermis = null;
+    #[ORM\Column(length: 15)]
+    private ?string $numeroPermis = null;
 
     #[ORM\ManyToMany(targetEntity: Location::class, mappedBy: 'ClientID')]
     private Collection $locations;
@@ -187,12 +188,12 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getNumeroPermis(): ?int
+    public function getNumeroPermis(): ?string
     {
         return $this->numeroPermis;
     }
 
-    public function setNumeroPermis(int $numeroPermis): self
+    public function setNumeroPermis(string $numeroPermis): self
     {
         $this->numeroPermis = $numeroPermis;
 
@@ -229,6 +230,10 @@ public function removeLocation(Location $location): self
     }
 
     return $this;
+}
+
+public function __toString(){
+    return $this-> email.': ['.$this->nom.' '.$this->prenom.']';
 }
 
 }

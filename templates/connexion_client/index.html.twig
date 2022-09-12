@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace client | E-Motion{% endblock %}
+
+{% block body %}
+<div>
+    <h1>Espace de connexion</h1>
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+      <form action="{{ path('app_connexion_client') }}" method="post">
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="_username" value="{{ lastUsername }}"/>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password"/>
+
+        {# If you want to control the URL the user is redirected to on success
+        <input type="hidden" name="_target_path" value="/account"/> #}
+
+        <button type="submit">login</button>
+    </form>
+    <a href="/inscription_client">Pas encore inscrit ? C'est par ici !</a>
+</div>
+{% endblock %}

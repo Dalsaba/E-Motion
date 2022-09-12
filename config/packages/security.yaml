@@ -16,6 +16,12 @@ security:
     main:
       lazy: true
       provider: app_user_provider
+      form_login:
+          # "app_login" is the name of the route created previously
+          login_path: app_connexion_client
+          check_path: app_connexion_client
+      logout:
+        path: app_logout
 
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#the-firewall
@@ -26,6 +32,7 @@ security:
   role_hierarchy:
     ROLE_PROPRIETAIRE: ROLE_ADMIN
     ROLE_ADMIN: ROLE_PROPRIETAIRE
+    ROLE_USER: ROLE_USER
 
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
