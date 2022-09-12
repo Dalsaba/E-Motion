@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Entity\Location;
 use App\Entity\Vehicule;
 use App\Form\LocationType;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,7 +41,7 @@ class DefaultController extends AbstractController
 
 
         return $this->render('default/vehicule_detail.html.twig', [
-            'controller_name' => 'VehiculeDetail',
+            'controller_name' => 'VehiculeDetailController',
             'vehicule'=> $vehicule,
 
         ]);
@@ -60,6 +61,7 @@ class DefaultController extends AbstractController
         $em = $doctrine ->getManager() ;
 
         $c = $em -> getRepository(Client::class)-> findOneBy(['nom' => 'CL']);
+        $vehiculeClass = $vehicule ->getClasse();
 
 
         // création d'un objet vide pour le form
@@ -70,7 +72,10 @@ class DefaultController extends AbstractController
         $form -> handleRequest($request);
         // si le formulaire a été soumis
         if ($form-> isSubmitted()) {
-            $resa-> setPrix(3);
+            $diff = $resa ->getDateDeFin() -> diff($resa ->getDateDeDebut()); // on fait la diff
+            $diff->format("days");
+            $nb = $diff->days;
+            $resa-> setPrix(($vehiculeClass ->getPrix()) * $nb);
             $resa-> addClientID($c);
             $resa-> addVehiculeID($vehicule);
 
@@ -97,7 +102,7 @@ class DefaultController extends AbstractController
 
 
         return $this->render('default/reservation.html.twig', [
-            'controller_name' => 'VehiculeDetail',
+            'controller_name' => 'reservationController',
             'vehicule'=> $vehicule,
             'reservation' => $reservation,
             'ajout'=> $form -> createView() // retourne la version html du form

@@ -33,7 +33,7 @@ class LocationType extends AbstractType
 //                'label' => 'Vehicule',
 //            ])
             ->add('Sauvegarder', SubmitType::class, [
-                'label' => 'Louer ! ',
+                'label' => 'Louer',
             ]);
         ;
     }
