@@ -30,7 +30,7 @@ security:
       # switch_user: true
 
   role_hierarchy:
-    ROLE_PROPRIETAIRE: ROLE_ADMIN
+    ROLE_PROPRIETAIRE: ROLE_USER
     ROLE_ADMIN: ROLE_PROPRIETAIRE
     ROLE_USER: ROLE_USER
 
@@ -38,6 +38,7 @@ security:
   # Note: Only the *first* access control that matches will be used
   access_control:
     # - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/espace_client, roles: ROLE_USER }
     # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
