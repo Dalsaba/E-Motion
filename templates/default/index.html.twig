@@ -3,9 +3,12 @@
 {% block title %}Accueil | E-Motion{% endblock %}
 
 {% block body %}
-    <div >
-        <h1 class="text-6xl"> Réservez maintenant</h1>
-
+    <div>
+    {% if app.user  is not null %}
+        <h1 class="text-6xl">Bienvenu {{app.user.nom}} {{app.user.prenom}}</h1>
+    {% else %}
+        <p class="text-6xl">Bienvenu, veuillez vous connectez pour pouvoir réserver</p>
+    {% endif %}
         {% for v in vehicule %}
             <table class="table w-full border-4 border-sky-300">
                 <thead>
