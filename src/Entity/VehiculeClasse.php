@@ -24,6 +24,9 @@ class VehiculeClasse
     #[ORM\OneToMany(mappedBy: 'Classe', targetEntity: Vehicule::class)]
     private Collection $vehicules;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $priceID = null;
+
     public function __construct()
     {
         $this->vehicules = new ArrayCollection();
@@ -84,6 +87,18 @@ class VehiculeClasse
                 $vehicule->setClasse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPriceID(): ?string
+    {
+        return $this->priceID;
+    }
+
+    public function setPriceID(?string $priceID): self
+    {
+        $this->priceID = $priceID;
 
         return $this;
     }

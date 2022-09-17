@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\Location;
 use App\Entity\Vehicule;
+use App\Entity\VehiculeClasse;
 use App\Form\LocationType;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -105,7 +106,7 @@ class DefaultController extends AbstractController
             'controller_name' => 'reservationController',
             'vehicule'=> $vehicule,
             'reservation' => $reservation,
-            'ajout'=> $form -> createView() // retourne la version html du form
+            'ajout'=> $form -> createView(),  // retourne la version html du form
 
 
         ]);
