@@ -25,8 +25,12 @@
                 <tr>
                     <td>{{ l.DateDeDebut | date('d/m/Y') }}</td>
                     <td>{{ l.DateDeFin | date('d/m/Y')}}</td>
-                    <td>{{ l.VehiculeID }}</td>
-                    <td>{{ l.VehiculeID }}</td>
+                    <td>
+        {% for info in l.ClientID %}
+            id : {{ info.id }}
+        {% endfor %}
+
+            </td>
                 </tr>
                 </tbody>
             </table>
@@ -35,7 +39,6 @@
 
     {% else %}
         <p> Votre panier est vide. Consultez notre liste d'utilisataires pour louer un véhicule</p>
-        <p> idclient : {{ idclient }}</p>
 {#        <p> ya des locations dans le panier</p>#}
     {% endif %}
 </div>

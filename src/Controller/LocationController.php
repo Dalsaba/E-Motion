@@ -22,17 +22,15 @@ class LocationController extends AbstractController
         $em = $doctrine ->getManager() ;
         $criteria = array_filter(array(
             'Statut'=> 'En cours',
-            'id' => $user->getId(),
+            'ClientID' => $user->getId(),
         ));
 
-        $location = $em->getRepository(Location::class)-> findBy(array('Statut'=> 'En cours',
-            'id' => $user->getId()));
+        $location = $em->getRepository(Location::class)-> findBy(array('Statut'=> 'En cours','ClientID' => $user->getId())) ;
 
 
         return $this->render('location/index.html.twig', [
             'controller_name' => 'PanierController',
             'location'=> $location,
-            'idclient' => $user->getId(),
 
         ]);
     }
