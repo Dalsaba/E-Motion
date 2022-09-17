@@ -39,9 +39,12 @@
         {% endblock %}
     </head>
     <body class="height: 100%" style="height : 90%;">
+    <header>
         {% block header %}
             {{ include('components/_header.html.twig') }}
         {% endblock %}
+    </header>
+
 
         <main class="grid justify-items-center w-full" style="height : 90%; width: 100%; overflow: scroll;">
             {% block body %}{% endblock %}
