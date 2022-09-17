@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 class DefaultController extends AbstractController
@@ -49,7 +50,7 @@ class DefaultController extends AbstractController
     }
 
     #[Route('/reservation/{id}', name: 'reservation')]
-    public function reservation (Vehicule $vehicule = null, Client $c = null, ManagerRegistry $doctrine, Request $request): Response
+    public function reservation (Vehicule $vehicule = null, Client $c = null, ManagerRegistry $doctrine, Request $request, UserInterface $user): Response
     {
 
         if ($vehicule == null) {
@@ -61,7 +62,8 @@ class DefaultController extends AbstractController
 
         //connexion  à la base
         $em = $doctrine ->getManager() ;
-        $c = $em -> getRepository(Client::class)-> findOneBy(['nom' => 'CL']);
+        $idClient = $user->getId();
+        $c = $em -> getRepository(Client::class)-> findOneBy(['id' => $idClient]);
         $vehiculeClass = $vehicule ->getClasse();
 
 
@@ -77,6 +79,7 @@ class DefaultController extends AbstractController
             $diff->format("days");
             $nb = $diff->days;
             $resa-> setPrix(($vehiculeClass ->getPrix()) * $nb);
+            $resa -> setStatut('En cours');
             $resa-> addClientID($c);
             $resa-> addVehiculeID($vehicule);
 
@@ -87,7 +90,7 @@ class DefaultController extends AbstractController
                 // execution de la sauvegardre (equivalent du prepare et execute en PDO)
                 $em -> flush();
 
-                $this-> addFlash('sucess', 'Location effectuée ajoutée');
+                $this-> addFlash('sucess', 'Ajoutée au panier!');
             }
 
 
@@ -107,7 +110,6 @@ class DefaultController extends AbstractController
             'vehicule'=> $vehicule,
             'reservation' => $reservation,
             'ajout'=> $form -> createView(),  // retourne la version html du form
-
 
         ]);
     }

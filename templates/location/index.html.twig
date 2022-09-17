@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LocationController!{% endblock %}
+{% block title %} Hello Panier{% endblock %}
 
 {% block body %}
 <style>
@@ -10,5 +10,33 @@
 
 <div class="example-wrapper">
     <h1 class="text-6xl"> Panier </h1>
+    {% if location %}
+        {% for l in location %}
+            <table class="table w-full border-4 border-sky-300">
+                <thead>
+                <tr class="min-w-full border-4 border-red-300">
+                    <th class="border-4 border-sky-300">{{ 'Date de début'}}</th>
+                    <th class="border-4 border-sky-300 ">{{ 'Date de fin'}}</th>
+                    <th class="border-4 border-sky-300 ">{{ 'Vehicule'}}</th>
+                    <th class="border-4 border-sky-300 ">{{ 'Prix / jour'}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ l.DateDeDebut | date('d/m/Y') }}</td>
+                    <td>{{ l.DateDeFin | date('d/m/Y')}}</td>
+                    <td>{{ l.VehiculeID }}</td>
+                    <td>{{ l.VehiculeID }}</td>
+                </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+
+
+    {% else %}
+        <p> Votre panier est vide. Consultez notre liste d'utilisataires pour louer un véhicule</p>
+        <p> idclient : {{ idclient }}</p>
+{#        <p> ya des locations dans le panier</p>#}
+    {% endif %}
 </div>
 {% endblock %}

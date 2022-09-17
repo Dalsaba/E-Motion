@@ -1,10 +1,15 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Location;
+use App\Entity\Vehicule;
+use Doctrine\Persistence\ManagerRegistry;
+
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class LocationController extends AbstractController
 
@@ -12,10 +17,24 @@ class LocationController extends AbstractController
 
 {
     #[Route('/panier', name: 'app_panier')]
-    public function index(): Response
+    public function index(ManagerRegistry $doctrine, UserInterface $user): Response
     {
+        $em = $doctrine ->getManager() ;
+        $criteria = array_filter(array(
+            'Statut'=> 'En cours',
+            'id' => $user->getId(),
+        ));
+
+        $location = $em->getRepository(Location::class)-> findBy(array('Statut'=> 'En cours',
+            'id' => $user->getId()));
+
+
         return $this->render('location/index.html.twig', [
             'controller_name' => 'PanierController',
+            'location'=> $location,
+            'idclient' => $user->getId(),
+
         ]);
     }
+
 }

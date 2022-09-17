@@ -22,9 +22,6 @@ class Location
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $DateDeFin = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
-    private array $Statut = [];
-
     #[ORM\Column]
     private ?int $Prix = null;
 
@@ -33,6 +30,9 @@ class Location
 
     #[ORM\ManyToMany(targetEntity: Vehicule::class, inversedBy: 'locations')]
     private Collection $VehiculeID;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Statut = null;
 
     public function __construct()
     {
@@ -69,18 +69,6 @@ class Location
         return $this;
     }
 
-    public function getStatut(): array
-    {
-        return $this->Statut;
-    }
-
-    public function setStatut(array $Statut): self
-    {
-        $this->Statut = $Statut;
-
-        return $this;
-    }
-
     public function getPrix(): ?int
     {
         return $this->Prix;
@@ -91,10 +79,6 @@ class Location
         $this->Prix = $Prix;
 
         return $this;
-    }
-
-    public function __toString(){
-        return string($this->id) ;
     }
 
     /**
@@ -144,5 +128,23 @@ class Location
 
         return $this;
     }
+
+    public function getStatut(): ?string
+    {
+        return $this->Statut;
+    }
+
+    public function setStatut(string $Statut): self
+    {
+        $this->Statut = $Statut;
+
+        return $this;
+    }
+
+    public function __toString(){
+        return string($this->id) ;
+    }
+
+
 
 }
