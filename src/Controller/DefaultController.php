@@ -57,22 +57,9 @@ class DefaultController extends AbstractController
             return $this -> redirectToRoute('app_default');
         }
 
-        $stripe = new \Stripe\StripeClient(
-
-            'sk_test_51LPM2ZHIeun4UQSx1c8tVHphOFAeC7F8vQDgcWatwsACH4BCirrbC9APtRIvNpY6io7mnme5561jy85EpBY2pu3C00N2DCcB9g'
-        );
-
-        $stripe->paymentLinks->create([
-            'line_items' => [[
-                'price' => 'price_1LabVtHIeun4UQSxJphF25Wg',
-                'quantity' => 2,
-                ]],
-                ]);
-
 
         //connexion  à la base
         $em = $doctrine ->getManager() ;
-
         $c = $em -> getRepository(Client::class)-> findOneBy(['nom' => 'CL']);
         $vehiculeClass = $vehicule ->getClasse();
 
@@ -122,6 +109,35 @@ class DefaultController extends AbstractController
 
 
         ]);
+    }
+
+
+    #[Route('/stripe', name: 'stripe')]
+    public function stripe ()
+    {
+        \Stripe\Stripe::setApiKey('sk_test_51LPM2ZHIeun4UQSx1c8tVHphOFAeC7F8vQDgcWatwsACH4BCirrbC9APtRIvNpY6io7mnme5561jy85EpBY2pu3C00N2DCcB9g');
+
+        header('Content-Type: application/json');
+
+        $YOUR_DOMAIN = 'http://localhost:8000/public';
+
+        $checkout_session = \Stripe\Checkout\Session::create([
+            'line_items' => [[
+                # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
+                'price' => 'price_1LabVtHIeun4UQSxJphF25Wg',
+                'quantity' => 2,
+            ]],
+            'mode' => 'payment',
+            'success_url' => $YOUR_DOMAIN . '/success.html',
+            'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+        ]);
+
+        header("HTTP/1.1 303 See Other");
+        header("Location: " . $checkout_session->url);
+        $this -> result = $checkout_session->url;
+
+        return $this -> redirect($this -> result) ;
+
     }
 
 
