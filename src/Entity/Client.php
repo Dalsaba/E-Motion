@@ -232,8 +232,12 @@ public function removeLocation(Location $location): self
     return $this;
 }
 
-public function __toString(){
-    return $this-> email.': ['.$this->nom.' '.$this->prenom.']';
-}
+//public function __toString(){
+//    return $this-> email.': ['.$this->nom.' '.$this->prenom.']';
+//}
+
+    public function __toString(){
+        return string($this->id) ;
+    }
 
 }

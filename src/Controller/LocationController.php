@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Entity\Location;
 use App\Entity\Vehicule;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 
@@ -22,26 +23,51 @@ class LocationController extends AbstractController
     public function index(ManagerRegistry $doctrine, UserInterface $user): Response
     {
         $em = $doctrine ->getManager() ;
-        $criteria = array_filter(array(
-            'Statut'=> 'En cours',
-            'ClientID' => $user->getId(),
-        ));
-
         $location = $em->getRepository(Location::class)-> findBy(['Statut'=> 'En cours']);
+//        $location = $em->getRepository(Location::class)-> findBy(['Statut'=> 'En cours']);
 
 
-
-
-//        $clientid = array_filter($location, function($value) {
-//            return $value === 2;
-//        }
-//        );
 
         return $this->render('location/index.html.twig', [
             'controller_name' => 'PanierController',
             'location'=> $location,
 
+
+
         ]);
     }
+
+//    #[Route('/stripe', name: 'stripe')]
+//    public function stripe (ManagerRegistry $doctrine)
+//    {
+//        $em = $doctrine ->getManager() ;
+//        $location = $em->getRepository(Location::class)-> findBy(['Statut'=> 'En cours']);
+//
+//        \Stripe\Stripe::setApiKey('sk_test_51LPM2ZHIeun4UQSx1c8tVHphOFAeC7F8vQDgcWatwsACH4BCirrbC9APtRIvNpY6io7mnme5561jy85EpBY2pu3C00N2DCcB9g');
+//
+//        header('Content-Type: application/json');
+//
+//        $YOUR_DOMAIN = 'http://localhost:8000/public';
+//
+//        $checkout_session = \Stripe\Checkout\Session::create([
+//            'line_items' => [[
+//                # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
+//                'price' => 'price_1LabVtHIeun4UQSxJphF25Wg',
+//                'quantity' => 2,
+//            ]],
+//            'mode' => 'payment',
+//            'success_url' => $YOUR_DOMAIN . '/success.html',
+//            'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+//        ]);
+//
+//        header("HTTP/1.1 303 See Other");
+//        header("Location: " . $checkout_session->url);
+//        $this -> result = $checkout_session->url;
+//
+//        return $this -> redirect($this -> result) ;
+//
+//    }
+
+
 
 }

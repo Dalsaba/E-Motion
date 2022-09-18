@@ -21,18 +21,21 @@
                     <th class="border-4 border-sky-300">{{ 'Date de début'}}</th>
                     <th class="border-4 border-sky-300 ">{{ 'Date de fin'}}</th>
                     <th class="border-4 border-sky-300 ">{{ 'Vehicule'}}</th>
-                    <th class="border-4 border-sky-300 ">{{ 'Prix / jour'}}</th>
+                    <th class="border-4 border-sky-300 ">{{ 'Prix'}}</th>
                 </tr>
                 </thead>
-                <tbody>
+                        {% for v in l.VehiculeID %}
+
+                        <tbody>
 
                     <tr>
                     <td>{{ l.DateDeDebut | date('d/m/Y') }}</td>
                     <td>{{ l.DateDeFin | date('d/m/Y')}}</td>
-                    <td>
-            id : {{ info.id }}
-            </td>
+                    <td>{{ v.immatricule }}</td>
+                    <td>{{ l.Prix }}</td>
                 </tr>
+                        {% endfor %}
+
                     {% endif %}
 
 
@@ -49,4 +52,9 @@
 {#        <p> ya des locations dans le panier</p>#}
     {% endif %}
 </div>
+
+
+{#    <form action="{{path('stripe')}}" method="post">#}
+{#        <button type="submit"> PAY </button>#}
+{#    </form>#}
 {% endblock %}
