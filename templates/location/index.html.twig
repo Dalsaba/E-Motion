@@ -12,7 +12,10 @@
     <h1 class="text-6xl"> Panier </h1>
     {% if location %}
         {% for l in location %}
-            <table class="table w-full border-4 border-sky-300">
+            {% for info in l.ClientID %}
+                    {% if info.id == app.user.id %}
+
+                    <table class="table w-full border-4 border-sky-300">
                 <thead>
                 <tr class="min-w-full border-4 border-red-300">
                     <th class="border-4 border-sky-300">{{ 'Date de début'}}</th>
@@ -22,19 +25,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+
+                    <tr>
                     <td>{{ l.DateDeDebut | date('d/m/Y') }}</td>
                     <td>{{ l.DateDeFin | date('d/m/Y')}}</td>
                     <td>
-        {% for info in l.ClientID %}
             id : {{ info.id }}
-        {% endfor %}
-
             </td>
                 </tr>
+                    {% endif %}
+
+
+                {% endfor %}
+
                 </tbody>
             </table>
-        {% endfor %}
+
+            {% endfor %}
 
 
     {% else %}

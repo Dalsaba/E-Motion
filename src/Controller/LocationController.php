@@ -16,6 +16,8 @@ class LocationController extends AbstractController
 // cette page gère le panier et l'historique car ce sont des locations avec le statut en cours et terminé
 
 {
+
+
     #[Route('/panier', name: 'app_panier')]
     public function index(ManagerRegistry $doctrine, UserInterface $user): Response
     {
@@ -25,8 +27,15 @@ class LocationController extends AbstractController
             'ClientID' => $user->getId(),
         ));
 
-        $location = $em->getRepository(Location::class)-> findBy(array('Statut'=> 'En cours','ClientID' => $user->getId())) ;
+        $location = $em->getRepository(Location::class)-> findBy(['Statut'=> 'En cours']);
 
+
+
+
+//        $clientid = array_filter($location, function($value) {
+//            return $value === 2;
+//        }
+//        );
 
         return $this->render('location/index.html.twig', [
             'controller_name' => 'PanierController',
