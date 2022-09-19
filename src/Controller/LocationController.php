@@ -55,7 +55,7 @@ class LocationController extends AbstractController
 
         header('Content-Type: application/json');
 
-        $YOUR_DOMAIN = 'http://localhost:8000/public';
+        $YOUR_DOMAIN = 'http://localhost:8000';
 
         $checkout_session = \Stripe\Checkout\Session::create([
             'line_items' => [[
@@ -65,8 +65,8 @@ class LocationController extends AbstractController
 
             ]],
             'mode' => 'payment',
-            'success_url' => $YOUR_DOMAIN . '/success.html.twig',
-            'cancel_url' => $YOUR_DOMAIN . '/cancel.html.twig',
+            'success_url' => $YOUR_DOMAIN . '/success',
+            'cancel_url' => $YOUR_DOMAIN . '/cancel',
         ]);
 
         header("HTTP/1.1 303 See Other");
@@ -99,8 +99,19 @@ class LocationController extends AbstractController
     }
 
     #[Route('/success', name: 'app_success')]
-    public function success(): Response
+    public function success(ManagerRegistry $doctrine, UserInterface $user): Response
     {
+        $em = $doctrine ->getManager() ;
+        $location = $em->getRepository(Location::class)-> findBy(['Statut'=> 'En cours', 'ClientID' => $user->getId()]);
+        foreach ($location as $data){
+
+            $data->setStatut('Terminé');
+
+        }
+
+        $em -> flush();
+//        $location -> setStatut('Terminé');
+
 
         return $this->render('location/success.html.twig');
     }
