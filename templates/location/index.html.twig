@@ -10,11 +10,7 @@
 
 <div class="example-wrapper">
     <h1 class="text-6xl"> Panier </h1>
-    {% if location %}
-        {% for l in location %}
-            {% for info in l.ClientID %}
-                    {% if info.id == app.user.id %}
-
+    {% if locationClient != null%}
                     <table class="table w-full border-4 border-sky-300">
                 <thead>
                 <tr class="min-w-full border-4 border-red-300">
@@ -24,27 +20,28 @@
                     <th class="border-4 border-sky-300 ">{{ 'Prix'}}</th>
                 </tr>
                 </thead>
-                        {% for v in l.VehiculeID %}
-
+        {% for l in locationClient %}
+            {% for v in l.VehiculeID %}
+                                    {% for info in l.ClientID %}
+                                            {% if info.id == app.user.id %}
                         <tbody>
 
                     <tr>
                     <td>{{ l.DateDeDebut | date('d/m/Y') }}</td>
                     <td>{{ l.DateDeFin | date('d/m/Y')}}</td>
                     <td>{{ v.immatricule }}</td>
-                    <td>{{idClient }}</td>
+                    <td>{{idClient}}</td>
                 </tr>
+                                        {% endif %}
+                                    {% endfor %}
                         {% endfor %}
+                    {% endfor %}
 
-                    {% endif %}
 
-
-                {% endfor %}
 
                 </tbody>
             </table>
 
-            {% endfor %}
 
 
     {% else %}

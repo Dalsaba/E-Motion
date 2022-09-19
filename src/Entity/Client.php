@@ -52,9 +52,13 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Location::class, mappedBy: 'ClientID')]
     private Collection $locations;
 
+    #[ORM\OneToMany(mappedBy: 'ClientID', targetEntity: Location::class, orphanRemoval: true)]
+    private Collection $location;
+
     public function __construct()
     {
         $this->locations = new ArrayCollection();
+        $this->location = new ArrayCollection();
     }
 
 
@@ -205,19 +209,23 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
 //        return ($this->nom) ;
 //    }
 
+public function __toString(){
+    return $this-> email.': ['.$this->nom.' '.$this->prenom.']';
+}
+
 /**
  * @return Collection<int, Location>
  */
-public function getLocations(): Collection
+public function getLocation(): Collection
 {
-    return $this->locations;
+    return $this->location;
 }
 
 public function addLocation(Location $location): self
 {
-    if (!$this->locations->contains($location)) {
-        $this->locations->add($location);
-        $location->addClientID($this);
+    if (!$this->location->contains($location)) {
+        $this->location->add($location);
+        $location->setClientID($this);
     }
 
     return $this;
@@ -225,19 +233,14 @@ public function addLocation(Location $location): self
 
 public function removeLocation(Location $location): self
 {
-    if ($this->locations->removeElement($location)) {
-        $location->removeClientID($this);
+    if ($this->location->removeElement($location)) {
+        // set the owning side to null (unless already changed)
+        if ($location->getClientID() === $this) {
+            $location->setClientID(null);
+        }
     }
 
     return $this;
 }
-
-//public function __toString(){
-//    return $this-> email.': ['.$this->nom.' '.$this->prenom.']';
-//}
-
-    public function __toString(){
-        return string($this->id) ;
-    }
 
 }

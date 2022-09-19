@@ -24,22 +24,21 @@ class LocationController extends AbstractController
     {
         $em = $doctrine ->getManager() ;
         $location = $em->getRepository(Location::class)-> findBy(['Statut'=> 'En cours']);
-//        $location = $em->getRepository(Location::class)-> findBy(['Statut'=> 'En cours']);
-//        $idClient = $location -> getClientID() -> getID();
         foreach ($location as $news) {
-            $idClient = $news -> getClientID();
+            $idClient = $news -> getClientID() -> getID();
+        }
+        $locationClient = null;
+        if ($idClient = $user->getId()) {
+            $locationClient = $location;
         }
 
-        foreach ($idClient as $new) {
-            $data = $new -> getID();
-        }
 
 
 
         return $this->render('location/index.html.twig', [
             'controller_name' => 'PanierController',
-            'location'=> $location,
-            'idClient'=> $data,
+            'locationClient'=> $locationClient,
+            'idClient'=> $idClient,
 
 
 

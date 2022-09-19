@@ -25,18 +25,19 @@ class Location
     #[ORM\Column]
     private ?int $Prix = null;
 
-    #[ORM\ManyToMany(targetEntity: Client::class, inversedBy: 'locations')]
-    private Collection $ClientID;
-
     #[ORM\ManyToMany(targetEntity: Vehicule::class, inversedBy: 'locations')]
     private Collection $VehiculeID;
 
     #[ORM\Column(length: 255)]
     private ?string $Statut = null;
 
+    #[ORM\ManyToOne(inversedBy: 'location')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Client $ClientID = null;
+
     public function __construct()
     {
-        $this->ClientID = new ArrayCollection();
+//        $this->ClientID = new ArrayCollection();
         $this->VehiculeID = new ArrayCollection();
     }
 
@@ -82,30 +83,6 @@ class Location
     }
 
     /**
-     * @return Collection<int, Client>
-     */
-    public function getClientID(): Collection
-    {
-        return $this->ClientID;
-    }
-
-    public function addClientID(Client $clientID): self
-    {
-        if (!$this->ClientID->contains($clientID)) {
-            $this->ClientID->add($clientID);
-        }
-
-        return $this;
-    }
-
-    public function removeClientID(Client $clientID): self
-    {
-        $this->ClientID->removeElement($clientID);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Vehicule>
      */
     public function getVehiculeID(): Collection
@@ -143,6 +120,18 @@ class Location
 
     public function __toString(){
         return string($this->id) ;
+    }
+
+    public function getClientID(): ?Client
+    {
+        return $this->ClientID;
+    }
+
+    public function setClientID(?Client $ClientID): self
+    {
+        $this->ClientID = $ClientID;
+
+        return $this;
     }
 
 
