@@ -77,6 +77,20 @@ class LocationController extends AbstractController
 
     }
 
+    #[Route('/historique', name: 'app_historique')]
+    public function historique(ManagerRegistry $doctrine, UserInterface $user): Response
+    {
+
+        $em = $doctrine ->getManager() ;
+        $location = $em->getRepository(Location::class)-> findBy(['Statut'=> 'Terminé', 'ClientID' => $user->getId()]);
+
+
+        return $this->render('location/historique.html.twig', [
+            'controller_name' => 'PanierController',
+            'locationClient'=> $location,
+        ]);
+    }
+
 
 
 }
