@@ -65,8 +65,8 @@ class LocationController extends AbstractController
 
             ]],
             'mode' => 'payment',
-            'success_url' => $YOUR_DOMAIN . '/success.html',
-            'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+            'success_url' => $YOUR_DOMAIN . '/success.html.twig',
+            'cancel_url' => $YOUR_DOMAIN . '/cancel.html.twig',
         ]);
 
         header("HTTP/1.1 303 See Other");
@@ -90,6 +90,39 @@ class LocationController extends AbstractController
             'locationClient'=> $location,
         ]);
     }
+
+    #[Route('/cancel', name: 'app_cancel')]
+    public function cancel(): Response
+    {
+
+        return $this->render('location/cancel.html.twig');
+    }
+
+    #[Route('/success', name: 'app_success')]
+    public function success(): Response
+    {
+
+        return $this->render('location/success.html.twig');
+    }
+
+    #[Route('/panier/delete/{id}', name: 'panier_delete')]
+    public function delete(Location $location = null, ManagerRegistry $d): Response{
+        if ($location == null) {
+            $this-> addFlash('danger', 'Produit introuvable');
+
+            return $this -> redirectToRoute('app_default');
+        }
+
+        $em= $d -> getManager();
+        $em -> remove($location);
+        $em -> flush();
+        $this->addFlash('warning', 'Panier vidée');
+
+
+
+        return $this -> redirectToRoute('app_default') ;
+    }
+
 
 
 

@@ -42,6 +42,9 @@
                 </tr>
 
                 {% endfor %}
+                <form action="{{path('panier_delete', {'id' : l.id})}}" method="post">
+                    <button type="submit"> Vider panier </button>
+                </form>
                 {% endfor %}
 
 
@@ -49,6 +52,10 @@
             </table>
 
             <p> TOTAL : {{ totalPrice }}</p>
+
+            <form action="{{path('stripe')}}" method="post">
+                <button type="submit"> PAY </button>
+            </form>
 
 
 
@@ -61,7 +68,5 @@
     </div>
 
 
-        <form action="{{path('stripe')}}" method="post">
-            <button type="submit"> PAY </button>
-        </form>
+
 {% endblock %}
