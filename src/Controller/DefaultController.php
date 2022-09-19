@@ -80,7 +80,7 @@ class DefaultController extends AbstractController
             $diff = $resa ->getDateDeFin() -> diff($resa ->getDateDeDebut()); // on fait la diff
             $diff->format("days");
             $nb = $diff->days;
-            $resa-> setPrix(($vehiculeClass ->getPrix()) * $nb);
+            $resa-> setPrix(($vehiculeClass ->getPrix()) * ($nb + 1));
             $resa -> setStatut('En cours');
             $resa-> setClientID($c);
             $resa-> addVehiculeID($vehicule);
