@@ -104,10 +104,7 @@ public function modif_info(Request $request, ManagerRegistry $doctrine){
 
     $id = $request->get('id');
     $user = $doctrine->getRepository(Client::class)->find($id);
-    /*
-    if (!$user) {
-        throw new NotFoundHttpException("Page not found");
-    }*/
+    
     $form = $this->createForm(ClientType::class,$user);
     $form->handleRequest($request);
     if($form->isSubmitted() && $form->isValid()){
@@ -140,6 +137,13 @@ public function modif_info(Request $request, ManagerRegistry $doctrine){
         }
         return $this->render('espace_client/ajout_vehicule.html.twig', [
             'Vehicule' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{id}/change_password', name: 'app_change_password')]
+    public function change_password(Request $request, ManagerRegistry $doctrine){
+        return $this->render('espace_client/change_password.html.twig', [
+            'UpdateInformation' => $form->createView()
         ]);
     }
 

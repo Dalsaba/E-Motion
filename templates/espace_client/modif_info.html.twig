@@ -7,10 +7,11 @@
 <div>
     <h1>Espace de connexion</h1>
      {{ form_start(UpdateInformation) }}
+        {{ form_row(UpdateInformation.nom) }}
+        {{ form_row(UpdateInformation.prenom) }}
         {{ form_row(UpdateInformation.email) }}
         {{ form_row(UpdateInformation.adresse) }}
         {{ form_row(UpdateInformation.telephone) }}
-        {{ form_row(UpdateInformation.numeroPermis) }}
     <a style="color:#2563EB" href="/politique_de_confidentialite">En validant mon opération, je clame que les informations me concernant sont exactes</a>
     <input type="checkbox" name="valid_term" required/>
         <br>
