@@ -1,26 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1 class="text-6xl">Faites votre reservation</h1>
-    <p> {{ vehicule.marque }}</p>
-{#        {{ form(ajout) }}#}
+    <div class="w-full p-6 flex flex-col items-center flex-shrink">
 
-    {{ form_start(ajout) }}
-    <div class=" mt-6">
-        {{ form_row(ajout.DateDeDebut, {}) }}
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-grey-500">Faites votre reservation</h1>
+        <div class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800"> {{ vehicule.marque }}</div>
+        {#        {{ form(ajout) }} #}
+
+        {{ form_start(ajout) }}
+        <div class=" mt-6">
+            {{ form_row(ajout.DateDeDebut, {}) }}
+        </div>
+        <div class=" mt-6">
+
+            {{ form_row(ajout.DateDeFin, {}) }}
+        </div>
+        <div
+                class="mx-auto w-3/3 lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+        >
+            {{ form_row(ajout.Sauvegarder, {}) }}
+        </div>
+
+        {{ form_end(ajout) }}
+
+
     </div>
-    <div class=" mt-6">
-
-        {{ form_row(ajout.DateDeFin, {}) }}
-    </div>
-    <div
-            class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-    >
-        {{ form_row(ajout.Sauvegarder, {}) }}
-    </div>
-
-    {{ form_end(ajout) }}
-
-
-
 {% endblock %}
