@@ -20,7 +20,7 @@ class VehiculeClasse
 
     #[ORM\Column]
     private ?int $Prix = null;
-
+/*
     #[ORM\OneToMany(mappedBy: 'Classe', targetEntity: Vehicule::class)]
     private Collection $vehicules;
 
@@ -31,7 +31,7 @@ class VehiculeClasse
     {
         $this->vehicules = new ArrayCollection();
     }
-
+*/
     public function getId(): ?int
     {
         return $this->id;
@@ -64,6 +64,7 @@ class VehiculeClasse
     /**
      * @return Collection<int, Vehicule>
      */
+/*
     public function getVehicules(): Collection
     {
         return $this->vehicules;
@@ -90,6 +91,7 @@ class VehiculeClasse
 
         return $this;
     }
+*/
 
     public function getPriceID(): ?string
     {
