@@ -26,8 +26,12 @@ class LocationController extends AbstractController
         $em = $doctrine ->getManager() ;
         $location = $em->getRepository(Location::class)-> findBy(['Statut'=> 'Panier', 'ClientID' => $user->getId()]);
         $totalPrice  = 0;
+        $idlocation  = 0;
         foreach ($location as $news) {
             $totalPrice = ($news -> getPrix()) + $totalPrice;
+        }
+        foreach ($location as $data) {
+            $idlocation = ($data -> getId());
         }
 
 
@@ -37,6 +41,7 @@ class LocationController extends AbstractController
             'controller_name' => 'PanierController',
             'locationClient'=> $location,
             'totalPrice'=> $totalPrice,
+            'idlocation'=> $idlocation,
         ]);
     }
 
@@ -126,11 +131,11 @@ class LocationController extends AbstractController
         $em= $d -> getManager();
         $em -> remove($location);
         $em -> flush();
-        $this->addFlash('warning', 'Panier vidée');
+        $this->addFlash('warning', 'Location supprimée');
 
 
 
-        return $this -> redirectToRoute('app_default') ;
+        return $this -> redirectToRoute('app_panier') ;
     }
 
 
