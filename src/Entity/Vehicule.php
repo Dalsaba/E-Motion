@@ -7,16 +7,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Uid\Uuid;
+
+#[UniqueEntity('immatricule', message: "Cette immatricule esite déjà, veuillez modifier votre saisie")]
+#[UniqueEntity('num_serie', message: "Ce numéro de série exite déjà, veuillez modifier votre saisie")]
 
 #[ORM\Entity(repositoryClass: VehiculeRepository::class)]
 class Vehicule
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column()]
-    private ?int $id = null;
+    #[ORM\Column(type: 'uuid', unique: true)]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    private $id;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $immatricule = null;
 
     #[ORM\Column(length: 255)]
@@ -43,18 +50,7 @@ class Vehicule
     #[ORM\ManyToOne(inversedBy: 'vehicules')]
     private ?VehiculeClasse $Classe = null;
 
-    #[ORM\ManyToMany(targetEntity: Location::class, mappedBy: 'VehiculeID')]
-    private Collection $locations;
-
-
-    public function __construct()
-    {
-        $this->contenuPaniers = new ArrayCollection();
-        $this->locations = new ArrayCollection();
-    }
-
-
-    public function getId(): ?int
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -170,6 +166,7 @@ class Vehicule
     /**
      * @return Collection<int, Location>
      */
+/*
     public function getLocations(): Collection
     {
         return $this->locations;
@@ -193,4 +190,9 @@ class Vehicule
 
         return $this;
     }
+/*
+    public function __toString(){
+        return (string) $this->immatricule.''.$this->marque.''.$this->modele.''.$this->num_serie.''.$this->couleur;
+    }
+*/
 }

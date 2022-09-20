@@ -3,23 +3,34 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Uid\Uuid;
+
 use Misd\PhoneNumberBundle\Validator\Constraints as MisdAssert;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
+#[UniqueEntity('email', message: "Cette addresse email, veuillez modifier votre saisie")]
+#[UniqueEntity('numeroPermis', message: "Ce numéro de permis exite déjà, veuillez modifier votre saisie")]
+#[UniqueEntity('telephone', message: "Ce numéro de téléphone exite déjà, veuillez modifier votre saisie")]
+
 class Client implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column()]
-    private ?int $id = null;
+    #[ORM\Column(type: 'uuid', unique: true)]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    private $id;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank]
     private ?string $email = null;
 
     #[ORM\Column(type : 'json')]
@@ -44,25 +55,14 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $adresse = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
     private ?int $telephone = null;
 
     #[ORM\Column(length: 15)]
+    #[Assert\NotBlank]
     private ?string $numeroPermis = null;
 
-    #[ORM\ManyToMany(targetEntity: Location::class, mappedBy: 'ClientID')]
-    private Collection $locations;
-
-    #[ORM\OneToMany(mappedBy: 'ClientID', targetEntity: Location::class, orphanRemoval: true)]
-    private Collection $location;
-
-    public function __construct()
-    {
-        $this->locations = new ArrayCollection();
-        $this->location = new ArrayCollection();
-    }
-
-
-    public function getId(): ?int
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -204,43 +204,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-
-//    public function __toString(){
-//        return ($this->nom) ;
-//    }
-
 public function __toString(){
     return $this-> email.': ['.$this->nom.' '.$this->prenom.']';
 }
-
-/**
- * @return Collection<int, Location>
- */
-public function getLocation(): Collection
-{
-    return $this->location;
-}
-
-public function addLocation(Location $location): self
-{
-    if (!$this->location->contains($location)) {
-        $this->location->add($location);
-        $location->setClientID($this);
-    }
-
-    return $this;
-}
-
-public function removeLocation(Location $location): self
-{
-    if ($this->location->removeElement($location)) {
-        // set the owning side to null (unless already changed)
-        if ($location->getClientID() === $this) {
-            $location->setClientID(null);
-        }
-    }
-
-    return $this;
-}
-
 }
