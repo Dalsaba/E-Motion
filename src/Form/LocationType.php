@@ -23,7 +23,7 @@ class LocationType extends AbstractType
                 'label' => 'Date de fin',
             ])
             ->add('Sauvegarder', SubmitType::class, [
-                'label' => 'Louer',
+                'label' => 'Panier!',
             ]);
 
     }
