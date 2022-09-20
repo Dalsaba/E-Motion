@@ -37,10 +37,10 @@
 
 </header>
 
-<div class="flex items-center justify-center bg-gradient-to-r from-cyan-500 to-blue-500">
+<div class="flex items-center justify-center bg-black">
     {% for type, messages in app.flashes %}
         {% for m in messages %}
-            <p class="py-3 px-5 border border-solid border-transparent rounded {{ type }}">{{ m }}</p>
+            <p class="py-3 px-5 border border-solid text-white border-transparent rounded {{ type }}">{{ m }}</p>
         {% endfor %}
     {% endfor %}
 </div>
