@@ -27,6 +27,7 @@
                     <th class="border-4 border-sky-300 ">{{ 'Date de fin' }}</th>
                     <th class="border-4 border-sky-300 ">{{ 'Vehicule' }}</th>
                     <th class="border-4 border-sky-300 ">{{ 'Prix' }}</th>
+                    <th class="border-4 border-sky-300 "></th>
                 </tr>
                 </thead>
                 {% for l in locationClient %}
@@ -39,6 +40,11 @@
                     <td>{{ l.DateDeFin | date('d/m/Y') }}</td>
                     <td> ({{ v.marque }}) - {{ v.immatricule }}</td>
                     <td>{{ l.Prix }}</td>
+                    <td>
+                        <form action="{{ path('app_facture', {'id' : l.id}) }}" method="post">
+                            <button type="submit"> Voir facture</button>
+                        </form>
+                    </td>
                 </tr>
 
                 {% endfor %}
