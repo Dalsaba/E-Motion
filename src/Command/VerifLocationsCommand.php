@@ -47,6 +47,7 @@ class VerifLocationsCommand extends Command
         /*
         $email = (new TemplatedEmail())
             ->to(new Address('test@example.com'))
+            ->priority(Email::PRIORITY_HIGH)
             ->subject('Véhicule non rendu')
 
             ->htmlTemplate('emails/alerte.html.twig')
