@@ -22,17 +22,22 @@ class Location
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $DateDeFin = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
-    private array $Statut = [];
-
     #[ORM\Column]
     private ?int $Prix = null;
-/*
+
     #[ORM\ManyToMany(targetEntity: Vehicule::class, inversedBy: 'locations')]
     private Collection $VehiculeID;
-*/
+
+    #[ORM\Column(length: 255)]
+    private ?string $Statut = null;
+
+    #[ORM\ManyToOne(inversedBy: 'location')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Client $ClientID = null;
+
     public function __construct()
     {
+//        $this->ClientID = new ArrayCollection();
         $this->VehiculeID = new ArrayCollection();
     }
 
@@ -65,18 +70,6 @@ class Location
         return $this;
     }
 
-    public function getStatut(): array
-    {
-        return $this->Statut;
-    }
-
-    public function setStatut(array $Statut): self
-    {
-        $this->Statut = $Statut;
-
-        return $this;
-    }
-
     public function getPrix(): ?int
     {
         return $this->Prix;
@@ -89,15 +82,10 @@ class Location
         return $this;
     }
 
-    public function __toString(){
-        return string($this->id) ;
-    }
-
     /**
      * @return Collection<int, Vehicule>
      */
-  /*
-     public function getVehiculeID(): Collection
+    public function getVehiculeID(): Collection
     {
         return $this->VehiculeID;
     }
@@ -117,5 +105,35 @@ class Location
 
         return $this;
     }
-*/
+
+    public function getStatut(): ?string
+    {
+        return $this->Statut;
+    }
+
+    public function setStatut(string $Statut): self
+    {
+        $this->Statut = $Statut;
+
+        return $this;
+    }
+
+    public function __toString(){
+        return string($this->id) ;
+    }
+
+    public function getClientID(): ?Client
+    {
+        return $this->ClientID;
+    }
+
+    public function setClientID(?Client $ClientID): self
+    {
+        $this->ClientID = $ClientID;
+
+        return $this;
+    }
+
+
+
 }
