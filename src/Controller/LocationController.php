@@ -109,6 +109,8 @@ class LocationController extends AbstractController
         $client = $em->getRepository(Client::class)-> findBy(['id'=>  $clientID]);
         foreach ($client as $data) {
             $clientAdresse = $data -> getAdresse();
+            $clientNom = $data -> getNom();
+            $clientPrenom = $data -> getPrenom();
         }
 
 
@@ -117,6 +119,8 @@ class LocationController extends AbstractController
             'controller_name' => 'PanierController',
             'location'=> $location,
             'clientAdresse'=> $clientAdresse,
+            'clientNom'=> $clientNom,
+            'clientPrenom'=> $clientPrenom,
         ]);
     }
 
