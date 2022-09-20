@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Hello Panier{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+    <div class="example-wrapper">
+        <h1 class="text-6xl"> Historique </h1>
+        {% if locationClient %}
+            <table class="table w-full border-4 border-sky-300">
+                <thead>
+                <tr class="min-w-full border-4 border-red-300">
+                    <th class="border-4 border-sky-300">{{ 'Date de début' }}</th>
+                    <th class="border-4 border-sky-300 ">{{ 'Date de fin' }}</th>
+                    <th class="border-4 border-sky-300 ">{{ 'Vehicule' }}</th>
+                    <th class="border-4 border-sky-300 ">{{ 'Prix' }}</th>
+                </tr>
+                </thead>
+                {% for l in locationClient %}
+                {% for v in l.VehiculeID %}
+
+                <tbody>
+
+                <tr>
+                    <td>{{ l.DateDeDebut | date('d/m/Y') }}</td>
+                    <td>{{ l.DateDeFin | date('d/m/Y') }}</td>
+                    <td> ({{ v.marque }}) - {{ v.immatricule }}</td>
+                    <td>{{ l.Prix }}</td>
+                </tr>
+
+                {% endfor %}
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+
+
+        {% else %}
+            <p> Vous n'avez pas encore effectué de location sur notre site </p>
+
+            {#        <p> ya des locations dans le panier</p> #}
+        {% endif %}
+    </div>
+{% endblock %}

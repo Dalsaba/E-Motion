@@ -3,7 +3,7 @@
 {% set has_role_proprietaire = is_granted('ROLE_PROPRIETAIRE') %}
 {% set has_role_admin = is_granted('ROLE_ADMIN') %}
 <!DOCTYPE html>
-<html>
+<html style="height : 97%;">
     <head>
         {% block meta %}
             <meta charset="UTF-8">
@@ -38,18 +38,23 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body class="height: 100%" >
+    <body class="height: 100%" style="height : 90%;">
+    <header>
         {% block header %}
             {{ include('components/_header.html.twig') }}
         {% endblock %}
+    </header>
 
-        <main class="grid justify-items-center w-full">
+
+        <main class="grid justify-items-center w-full" style="height : 90%; width: 100%; overflow: scroll;">
             {% block body %}{% endblock %}
         </main>
 
-        {% block footer %}
-            {{ include('components/_footer.html.twig') }}
-        {% endblock %}
+        <footer style="position: relative; bottom: 2% ; width: 100%;">
+            {% block footer %}
+                {{ include('components/_footer.html.twig') }}
+            {% endblock %}
+        </footer>
     </body>
 
 </html>

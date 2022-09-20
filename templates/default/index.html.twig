@@ -5,11 +5,10 @@
 {% block body %}
     <div>
     {% if app.user  is not null %}
-        <h1 class="text-6xl">Bienvenu {{app.user.nom}} {{app.user.prenom}}</h1>
+        <h1 class="text-6xl">Bienvenue {{app.user.nom}} {{app.user.prenom}}</h1>
     {% else %}
-        <p class="text-6xl">Bienvenu, veuillez vous connectez pour pouvoir réserver</p>
+        <p class="text-6xl">Bienvenue, veuillez vous connecter pour pouvoir réserver</p>
     {% endif %}
-        {% for v in vehicule %}
             <table class="table w-full border-4 border-sky-300">
                 <thead>
                     <tr class="min-w-full border-4 border-red-300">
@@ -17,19 +16,22 @@
                         <th class="border-4 border-sky-300 ">{{ 'Détails' | trans }}</th>
                     </tr>
                 </thead>
+                {% for v in vehicule %}
                 <tbody>
-                    <tr>
+                <tr>
                         <td></td>
+
                         <td class="bg-amber-200 text-amber-900 text-lg rounded-xl my-8">
                             <a style="display:block" href="{{path('vehicule_detail', {'id' : v.id})}}">
                                 <div class="font-bold ">{{ v.marque }} - {{v.dateAchat | date('Y')}}  </div><br/>
                                 {{ v.modele }} <br/>
                             </a>
                         </td>
+
                     </tr>
                 </tbody>
+                {% endfor %}
             </table>
-        {% endfor %}
 
     </div>
 

@@ -22,20 +22,10 @@ class LocationType extends AbstractType
             ->add('DateDeFin', DateType::class, [
                 'label' => 'Date de fin',
             ])
-//            ->add('Statut')
-//            ->add('Prix', IntegerType::class, [
-//                'label' => 'Prix',
-//            ])
-//            ->add('ClientID', TextType::class, [
-//                'label' => 'Nom',
-//            ])
-//            ->add('VehiculeID', TextType::class, [
-//                'label' => 'Vehicule',
-//            ])
             ->add('Sauvegarder', SubmitType::class, [
                 'label' => 'Louer',
             ]);
-        ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
