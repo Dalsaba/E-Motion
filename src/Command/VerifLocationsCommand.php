@@ -16,6 +16,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 #[AsCommand(
     name: 'app:verif-locations',
@@ -40,8 +41,13 @@ class VerifLocationsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // Récupère les locations non rendues pour lesquelles
-        // la date de fin est passée
+        $output->writeln([
+            '',
+            'Vérifications des locations non rendues...',
+            '============',
+        ]);
+
+        // Récupère les locations payées
         $locations = $this->em->getRepository(Location::class)->findBy(['Statut'=> 'Terminé']);
         
         // Pour chaque location non rendue, envoyer un mail
@@ -57,6 +63,7 @@ class VerifLocationsCommand extends Command
 
                 // Envoi d'un e-mail
                 $email = (new TemplatedEmail())
+                    ->from(new Address('contact@e-motion.fr'))
                     ->to(new Address($adresseEmail))
                     ->priority(Email::PRIORITY_HIGH)
                     ->subject('Véhicule non rendu')
@@ -65,7 +72,7 @@ class VerifLocationsCommand extends Command
 
                     ->context([
                         'prenom' => $prenom,
-                        'dateDeFin' => $dateDeFin,
+                        'date_de_fin' => $dateDeFin,
                     ])
                 ;
 
@@ -75,28 +82,6 @@ class VerifLocationsCommand extends Command
             // Mise à jour de la base de données
             $this->em->flush();
         }
-        
-        /*
-        $email = (new TemplatedEmail())
-            ->to(new Address('test@example.com'))
-            ->priority(Email::PRIORITY_HIGH)
-            ->subject('Véhicule non rendu')
-
-            ->htmlTemplate('emails/alerte.html.twig')
-
-            ->context([
-                'username' => 'foo',
-            ])
-        ;
-
-        */
-
-        // Affiche plusieurs lignes dans la console
-        $output->writeln([
-            '============',
-            'Vérifications des locations non rendues...',
-            '============',
-        ]);
 
         return Command::SUCCESS;
     }
