@@ -14,11 +14,15 @@
                 Nb de kilomètres : {{ vehicule.nbKilometre }} <br/>
                 Prix: {{ vehicule.prixAchat }} <br/>
                 {%if app.user%}
-                    <a href="{{ path('reservation', {'id' : vehicule.id}) }}" class="h-2/6 w-1/6 bg-cyan-500 hover:bg-cyan-600 rounded-xl flex justify-center grid content-center text-white">
+                    <a href="{{ path('reservation', {'id' : vehicule.id}) }}"
+                       class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                    >
                         {{'Louer' | trans}}
                     </a>
                 {%else%}
-                    <a href="{{ path('app_connexion_client') }}" class="h-2/6 w-1/6 bg-cyan-500 hover:bg-cyan-600 rounded-xl flex justify-center grid content-center text-white">
+                    <a href="{{ path('app_connexion_client') }}"
+                       class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                    >
                         {{'Connexion' | trans}}
                     </a>
                 {%endif%}

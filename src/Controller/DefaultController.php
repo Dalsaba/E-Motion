@@ -31,6 +31,18 @@ class DefaultController extends AbstractController
         ]);
     }
 
+    #[Route('/not_found', name: 'app_not_found')]
+    public function not_found(): Response
+    {
+
+        return $this->render('bundles/TwigBundle/Exception/error404.html.twig', [
+            'controller_name' => 'error'
+        ]);
+    }
+
+
+
+
     #[Route('/vehicule_detail/{id}', name: 'vehicule_detail')]
     public function affichVehiculeDetail(Vehicule $vehicule = null, ManagerRegistry $doctrine): Response
     {
@@ -81,7 +93,7 @@ class DefaultController extends AbstractController
             $diff->format("days");
             $nb = $diff->days;
             $resa-> setPrix(($vehiculeClass ->getPrix()) * ($nb + 1));
-            $resa -> setStatut('En cours');
+            $resa -> setStatut('Panier');
             $resa-> setClientID($c);
             $resa-> addVehiculeID($vehicule);
 
