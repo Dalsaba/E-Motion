@@ -27,16 +27,12 @@ class Location
 
     #[ORM\Column]
     private ?int $Prix = null;
-
-    #[ORM\ManyToMany(targetEntity: Client::class, inversedBy: 'locations')]
-    private Collection $ClientID;
-
+/*
     #[ORM\ManyToMany(targetEntity: Vehicule::class, inversedBy: 'locations')]
     private Collection $VehiculeID;
-
+*/
     public function __construct()
     {
-        $this->ClientID = new ArrayCollection();
         $this->VehiculeID = new ArrayCollection();
     }
 
@@ -98,33 +94,10 @@ class Location
     }
 
     /**
-     * @return Collection<int, Client>
-     */
-    public function getClientID(): Collection
-    {
-        return $this->ClientID;
-    }
-
-    public function addClientID(Client $clientID): self
-    {
-        if (!$this->ClientID->contains($clientID)) {
-            $this->ClientID->add($clientID);
-        }
-
-        return $this;
-    }
-
-    public function removeClientID(Client $clientID): self
-    {
-        $this->ClientID->removeElement($clientID);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Vehicule>
      */
-    public function getVehiculeID(): Collection
+  /*
+     public function getVehiculeID(): Collection
     {
         return $this->VehiculeID;
     }
@@ -144,5 +117,5 @@ class Location
 
         return $this;
     }
-
+*/
 }

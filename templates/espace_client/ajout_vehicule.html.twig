@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace client | E-Motion{% endblock %}
+
+{% block body %}
+<div>
+    <b><h1>Ajout un véhicule</h1></b>
+     {{ form_start(Vehicule) }}
+        {{ form_row(Vehicule.immatricule) }}
+        {{ form_row(Vehicule.marque) }}
+        {{ form_row(Vehicule.modele) }}
+        {{ form_row(Vehicule.num_serie) }}
+        {{ form_row(Vehicule.couleur) }}
+        {{ form_row(Vehicule.nb_kilometre) }}
+        {{ form_row(Vehicule.date_achat) }}
+        {{ form_row(Vehicule.prix_achat) }}
+        {{ form_row(Vehicule.Classe) }}
+        <a style="color:#2563EB" href="/cgv">Accepter les termes et conditions</a>
+        <input type="checkbox" name="valid_term" required/>
+        <br>
+        <button style="background-color: cyan;" type="submit" class="btn">Valider</button>
+    {{ form_end(Vehicule) }}
+</div>
+{% endblock %}
