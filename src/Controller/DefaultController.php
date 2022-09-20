@@ -31,6 +31,18 @@ class DefaultController extends AbstractController
         ]);
     }
 
+    #[Route('/not_found', name: 'app_not_found')]
+    public function not_found(): Response
+    {
+
+        return $this->render('bundles/TwigBundle/Exception/error404.html.twig', [
+            'controller_name' => 'error'
+        ]);
+    }
+
+
+
+
     #[Route('/vehicule_detail/{id}', name: 'vehicule_detail')]
     public function affichVehiculeDetail(Vehicule $vehicule = null, ManagerRegistry $doctrine): Response
     {
