@@ -110,7 +110,6 @@ class LocationController extends AbstractController
         }
 
         $em -> flush();
-//        $location -> setStatut('Terminé');
 
 
         return $this->render('location/success.html.twig');
