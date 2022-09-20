@@ -14,7 +14,9 @@
     <b><h1>Espace Professionnel</h1></b>
     <p>Pour devenir professionnel, veuillez ajouter un véhicule</p>
         <a href="{{path('app_ajout_vehicule')}}"><li>Ajouter un véhicule</li></a>
+        {% if is_granted('ROLE_PROPRIETAIRE') %}
         <a href="{#{path('app_mes_vehicules')}#}"><li>Mes véhicules</li></a>
+        {% endif %}
     {% else %}
         <a href="{{path('app_connexion_client')}}"><h1>Veuillez vous connecter avant</h1></a>
     {% endif %}

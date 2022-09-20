@@ -140,6 +140,7 @@ public function modif_info(Request $request, ManagerRegistry $doctrine){
         ]);
     }
 
+#Fonction changement mot de passe
     #[Route('/change_password', name: 'app_change_password')]
     public function change_password(Request $request, ManagerRegistry $doctrine){
         return $this->render('espace_client/change_password.html.twig', [

@@ -171,23 +171,19 @@ class Vehicule
     {
         return $this->locations;
     }
-
     public function addLocation(Location $location): self
     {
         if (!$this->locations->contains($location)) {
             $this->locations->add($location);
             $location->addVehiculeID($this);
         }
-
         return $this;
     }
-
     public function removeLocation(Location $location): self
     {
         if ($this->locations->removeElement($location)) {
             $location->removeVehiculeID($this);
         }
-
         return $this;
     }
 /*

@@ -30,8 +30,8 @@ security:
       # switch_user: true
 
   role_hierarchy:
-    ROLE_PROPRIETAIRE: ROLE_ADMIN
-    ROLE_ADMIN: ROLE_PROPRIETAIRE
+    ROLE_ADMIN: ROLE_ADMIN
+    ROLE_PROPRIETAIRE: ROLE_PROPRIETAIRE
     ROLE_USER: ROLE_USER
 
   # Easy way to control access for large sections of your site
