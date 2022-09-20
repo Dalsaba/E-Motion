@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 #[AsCommand(
@@ -24,11 +25,13 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 )]
 class VerifLocationsCommand extends Command
 {
+    private $currentDate;
     private $em;
     private $mailer;
 
     public function __construct(EntityManagerInterface $em, MailerInterface $mailer)
     {
+        $this->currentDate = new \DateTime("now");
         $this->em = $em;
         $this->mailer = $mailer;
 
@@ -39,10 +42,39 @@ class VerifLocationsCommand extends Command
     {
         // Récupère les locations non rendues pour lesquelles
         // la date de fin est passée
-        $locations = $this->em->getRepository(Location::class)->findAll();
+        $locations = $this->em->getRepository(Location::class)->findBy(['Statut'=> 'Terminé']);
         
         // Pour chaque location non rendue, envoyer un mail
-        // (boucle dans un array)
+        foreach ($locations as $loc) {
+            if ($loc->getDateDeFin() < $this->currentDate) {
+                // Changement du statut de la location
+                $loc->setStatut('Non rendu');
+
+                // Récupération du prénom, de l'e-mail et de la date de fin
+                $prenom = $loc->getClientID()->getPrenom();
+                $adresseEmail = $loc->getClientID()->getEmail();
+                $dateDeFin = $loc->getDateDeFin();
+
+                // Envoi d'un e-mail
+                $email = (new TemplatedEmail())
+                    ->to(new Address($adresseEmail))
+                    ->priority(Email::PRIORITY_HIGH)
+                    ->subject('Véhicule non rendu')
+
+                    ->htmlTemplate('emails/alerte.html.twig')
+
+                    ->context([
+                        'prenom' => $prenom,
+                        'dateDeFin' => $dateDeFin,
+                    ])
+                ;
+
+                $this->mailer->send($email);
+            }
+            
+            // Mise à jour de la base de données
+            $this->em->flush();
+        }
         
         /*
         $email = (new TemplatedEmail())
