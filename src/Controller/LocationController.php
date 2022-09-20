@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Client;
 use App\Entity\Location;
 use App\Entity\Vehicule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -93,6 +94,29 @@ class LocationController extends AbstractController
         return $this->render('location/historique.html.twig', [
             'controller_name' => 'PanierController',
             'locationClient'=> $location,
+        ]);
+    }
+
+    #[Route('/facture/{id}', name: 'app_facture')]
+    public function facture(String $id = null, ManagerRegistry $doctrine): Response
+    {
+
+        $em = $doctrine ->getManager() ;
+        $location = $em->getRepository(Location::class)-> findBy(['id'=> $id]);
+        foreach ($location as $data) {
+            $clientID = $data -> getClientID();
+        }
+        $client = $em->getRepository(Client::class)-> findBy(['id'=>  $clientID]);
+        foreach ($client as $data) {
+            $clientAdresse = $data -> getAdresse();
+        }
+
+
+
+        return $this->render('location/facture.html.twig', [
+            'controller_name' => 'PanierController',
+            'location'=> $location,
+            'clientAdresse'=> $clientAdresse,
         ]);
     }
 
