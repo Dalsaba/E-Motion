@@ -81,7 +81,7 @@ class DefaultController extends AbstractController
             $diff->format("days");
             $nb = $diff->days;
             $resa-> setPrix(($vehiculeClass ->getPrix()) * ($nb + 1));
-            $resa -> setStatut('En cours');
+            $resa -> setStatut('Panier');
             $resa-> setClientID($c);
             $resa-> addVehiculeID($vehicule);
 

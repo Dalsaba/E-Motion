@@ -1,22 +1,27 @@
-<header class="bg-orange-500 h-32 flex items-center justify-center">
-    <nav class="">
-        <ul class="flex gap-x-6">
-            <li><a href="{{ path('app_default') }}" class="text-blue-600 hover:text-blue-500">Accueil</a></li>
-            {# Si un client est connecté #}
-            {% if app.user %}
-            <li><a href="" class="text-blue-600 hover:text-blue-500">Espace client</a></li>
-            <li><a href="{{ path('app_panier') }}" class="text-blue-600 hover:text-blue-500">Panier</a></li>
-            <li><a href="{{ path('app_logout') }}" class="text-blue-600 hover:text-blue-500">Déconnexion</a></li>
-            {# Si un client n'est pas connecté #}
-            {% else %}
-            <li><a href="{{ path('app_connexion_client') }}" class="text-blue-600 hover:text-blue-500">Se connecter</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+<header class="bg-blue-900 text-white h-32 flex flex-col items-center justify-center">
+    <div class=" w-4/5 flex justify-between">
+        <h1 class="font-bold text-2xl w-2/5 ">EMOTION</h1>
+        <nav class="w-2/5 grid justify-items-end">
+            <ul class="flex gap-x-6">
+                <li><a href="{{ path('app_default') }}" class="text-blue-600 hover:text-blue-500">Accueil</a></li>
+                {% if app.user %}  {# Si un client est connecté #}
+                    <li><a href="" class="text-blue-600 hover:text-blue-500">Espace client</a></li>
+                    <li><a href="{{ path('app_panier') }}" class="text-blue-600 hover:text-blue-500">Panier</a></li>
+                    <li><a href="{{ path('app_logout') }}" class="text-blue-600 hover:text-blue-500">Déconnexion</a></li>
+                {% else %} {# Si un client n'est pas connecté #}
+                    <li><a href="{{ path('app_connexion_client') }}" class="text-blue-600 hover:text-blue-500">Se connecter</a></li>
+                {% endif %}
+            </ul>
+        </nav>
 
+    </div>
+
+</header>
+
+<div class="flex items-center justify-center bg-gradient-to-r from-cyan-500 to-blue-500">
     {% for type, messages in app.flashes %}
         {% for m in messages %}
             <p class="py-3 px-5 border border-solid border-transparent rounded {{ type }}">{{ m }}</p>
         {% endfor %}
     {% endfor %}
-</header>
+</div>

@@ -42,9 +42,6 @@
                 </tr>
 
                 {% endfor %}
-                <form action="{{path('panier_delete', {'id' : l.id})}}" method="post">
-                    <button type="submit"> Vider panier </button>
-                </form>
                 {% endfor %}
 
 
@@ -59,7 +56,9 @@
 
 
 
-
+            <form action="{{path('panier_delete', {'id' : locationClient.id})}}" method="post">
+                <button type="submit"> Vider panier </button>
+            </form>
         {% else %}
             <p> Votre panier est vide. Consultez notre liste d'utilisataires pour louer un véhicule</p>
 
