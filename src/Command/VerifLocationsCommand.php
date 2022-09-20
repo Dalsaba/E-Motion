@@ -76,12 +76,21 @@ class VerifLocationsCommand extends Command
                     ])
                 ;
 
-                $this->mailer->send($email);
+                try {
+                    $this->mailer->send($email);
+                    $output->writeln(['Mail envoyé à ' . $adresseEmail]);
+                } catch (TransportExceptionInterface $e) {
+                    // some error prevented the email sending; display an
+                    // error message or try to resend the message
+                    $output->writeln(['Échec de l\'envoi du mail.']);
+                }
             }
             
             // Mise à jour de la base de données
             $this->em->flush();
         }
+
+        $output->writeln(['============', '']);
 
         return Command::SUCCESS;
     }
