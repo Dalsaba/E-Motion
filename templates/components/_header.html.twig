@@ -4,7 +4,7 @@
             <li><a href="{{ path('app_default') }}" class="text-blue-600 hover:text-blue-500">Accueil</a></li>
             {# Si un client est connecté #}
             {% if app.user %}
-            <li><a href="" class="text-blue-600 hover:text-blue-500">Espace client</a></li>
+            <li><a href="{{ path('app_user_space')}}" class="text-blue-600 hover:text-blue-500">Espace Utilisateur</a></li>
             <li><a href="{{ path('app_logout') }}" class="text-blue-600 hover:text-blue-500">Déconnexion</a></li>
             {# Si un client n'est pas connecté #}
             {% else %}
