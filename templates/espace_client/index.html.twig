@@ -16,7 +16,7 @@
     <b><h1>Espace Professionnel</h1></b>
     {% if is_granted('ROLE_PROPRIETAIRE') == false %}
     <p>Pour devenir professionnel, veuillez ajouter un véhicule</p>
-        <a class="hover:text-blue-800" href="{{path('app_ajout_vehicule')}}"><li>Ajouter un véhicule</li></a>
+        <a class="hover:text-blue-800" href="{{path('app_ajout_vehicule', {id: app.user.id})}}"><li>Ajouter un véhicule</li></a>
         <a class="hover:text-blue-800" href="{#{path('app_mes_vehicules')}#}"><li>Mes véhicules</li></a>
     {% endif %}
         <a href="{{path('app_ajout_vehicule',{id: app.user.id})}}"><li>Ajouter un véhicule</li></a>
