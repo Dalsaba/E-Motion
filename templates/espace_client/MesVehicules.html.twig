@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
-{% block title %}Espace client | E-Motion{% endblock %}
+{% block title %}Mes véhicules | E-Motion{% endblock %}
 
 {% block body %}
-<b><h1>Mes véhicule</h1></b>
+<b><h1>Mes véhicules</h1></b>
 <a href="{{path('app_ajout_vehicule', {id: app.user.id})}}">Ajouter vos véhicules ici</a>
     <ul>
         {% for v in vehicule %}

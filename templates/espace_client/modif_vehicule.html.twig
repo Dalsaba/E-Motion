@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
-{% block title %}Espace client | E-Motion{% endblock %}
+{% block title %}Modifier les informations du véhicule | E-Motion{% endblock %}
 
 {% block body %}
     <a href="{{path('app_user_space')}}">Retour menu</a>
-    <h1>Modification information véhicule</h1>
+    <h1>Modification informations véhicule</h1>
 <div>
     {{ form_start(UpdateInformation) }}
         {{ form_row(UpdateInformation.immatricule) }}
