@@ -15,9 +15,11 @@
                 {{v.nb_kilometre}}
                 {{v.date_achat | date('d-m-Y') }}
                 {{v.prix_achat}}
+                {{v.Classe.name}}
             </li>
         <a onclick="myFunction()" href="{{path('app_supp_vehicule',{idUser: app.user.id, id: v.id})}}">Supprimer</a>
-        <a href="">Editer</a>
+        <br>
+        <a href="{{path('app_modif_vehicule',{idUser: app.user.id, id: v.id})}}">Editer</a>
         <hr>
         {% endfor %}
     </ul>

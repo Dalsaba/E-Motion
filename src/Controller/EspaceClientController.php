@@ -145,6 +145,7 @@ public function modif_info(Request $request, ManagerRegistry $doctrine){
             $idVehicule = $data -> getId();
             $immatricule = $data -> getImmatricule();
             $marque = $data -> getMarque();
+            $typeVehicule = $data -> getClasse();
             $modele = $data -> getId_Client();
             $num_serie = $data -> getNum_Serie();
             $couleur = $data -> getCouleur();
@@ -159,7 +160,7 @@ public function modif_info(Request $request, ManagerRegistry $doctrine){
 
     #Fonction suppression Véhicule
     #[Route(path: '/MesVehicules/{id}', name: 'app_supp_vehicule')]
-    public function delete(Request $request, Vehicule $vehicule = null, ManagerRegistry $d): Response{
+    public function deleteVehicule(Request $request, Vehicule $vehicule = null, ManagerRegistry $d): Response{
         $idUser = $request->get('idUser');
         if ($vehicule == null) {
             $this-> addFlash('danger', 'Vehicule introuvable');
@@ -170,6 +171,32 @@ public function modif_info(Request $request, ManagerRegistry $doctrine){
         $em -> flush();
         $this->addFlash('warning', 'Vehicule supprimée');
         return $this->redirectToRoute('app_mes_vehicules', array('id' => $idUser));
+    }
+
+    #Fonction modif Véhicule
+    #[Route(path: '/MesVehicules/edit/{id}', name: 'app_modif_vehicule')]
+    public function modificationVehicule(Request $request, ManagerRegistry $doctrine, Vehicule $vehicule = null): Response{
+        $idUser = $request->get('idUser');
+        $id = $request->get('id');
+
+        if($vehicule == null){
+            $this-> addFlash('danger', 'Vehicule introuvable');
+            return $this -> redirectToRoute('app_mes_vehicules', array('id' => $idUser));
+        }
+
+        $vehicule = $doctrine->getRepository(Vehicule::class)->find($id);
+        $form = $this->createForm(VehiculeType::class,$vehicule);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $em = $doctrine->getManager();
+            $UpdateInformation = $form->getData();
+            $em->persist($UpdateInformation);
+            $em->flush();
+            return $this -> redirectToRoute('app_mes_vehicules', array('id' => $idUser));
+        }
+        return $this->render('espace_client/modif_vehicule.html.twig', [
+            'UpdateInformation' => $form->createView()
+        ]);
     }
 
 #Fonction déconnexion
