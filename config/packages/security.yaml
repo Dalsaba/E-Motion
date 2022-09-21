@@ -39,7 +39,7 @@ security:
   access_control:
     - { path: ^/admin, roles: ROLE_ADMIN }
     - { path: ^/change_password, roles: ROLE_USER }
-    - { path: ^/(espace_client|facture|panier), roles: ROLE_USER }
+    - { path: ^/(espace_client|facture|modif_info|panier), roles: ROLE_USER }
     - { path: ^/(stripe|success|cancel), roles: ROLE_USER }
     - { path: /(ajouter_vehicule|MesVehicules), roles: ROLE_USER }
     # - { path: /MesVehicules, roles: ROLE_PROPRIETAIRE }
