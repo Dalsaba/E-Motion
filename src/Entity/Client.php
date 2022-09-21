@@ -62,6 +62,14 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     private ?string $numeroPermis = null;
 
+    #[ORM\OneToMany(mappedBy: 'id_client', targetEntity: Vehicule::class, orphanRemoval: true)]
+    private Collection $id_vehicule;
+
+    public function __construct()
+    {
+        $this->id_vehicule = new ArrayCollection();
+    }
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -204,7 +212,37 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-public function __toString(){
-    return $this-> email.': ['.$this->nom.' '.$this->prenom.']';
-}
+    public function __toString(){
+        return $this->roles.' '.$this-> email.': ['.$this->nom.' '.$this->prenom.']';
+    }
+
+    /**
+     * @return Collection<int, Vehicule>
+     */
+    public function getIdVehicule(): Collection
+    {
+        return $this->id_vehicule;
+    }
+
+    public function addIdVehicule(Vehicule $idVehicule): self
+    {
+        if (!$this->id_vehicule->contains($idVehicule)) {
+            $this->id_vehicule->add($idVehicule);
+            $idVehicule->setIdClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdVehicule(Vehicule $idVehicule): self
+    {
+        if ($this->id_vehicule->removeElement($idVehicule)) {
+            // set the owning side to null (unless already changed)
+            if ($idVehicule->getIdClient() === $this) {
+                $idVehicule->setIdClient(null);
+            }
+        }
+
+        return $this;
+    }
 }

@@ -82,22 +82,6 @@ class EspaceClientController extends AbstractController
         ]);
 }
 
-# Fonction affichage historique client
-#[Route('/historique_commande', name: 'app_historique_commande')]
-public function historique_cmd(Location $user = null, Request $request, ManagerRegistry $doctrine){
-    $ClientID = $request->attributes->get('_route_params');
-    //$Statut = $request->attributes->get('_route_params');
-    // Récupération des commandes liés à l'utilisateurs
-    $ems = $doctrine->getManager();
-    $usersCommande = $ems->getRepository(Location::class)->findBy($ClientID);
-    //$notPaid = $ems ->getRepository(Panier::class)-> notPaidOrder($Statut);
-
-    return $this->render('espace_client/historique_cmd.html.twig', [
-        'paniers' => $usersCommande,
-        //'notPaid' => $notPaid,
-    ]);
-}
-
 # Fonction modification information personel client
 #[Route('/modif_info/{id}', name: 'app_modif_info')]
 public function modif_info(Request $request, ManagerRegistry $doctrine){
@@ -112,38 +96,80 @@ public function modif_info(Request $request, ManagerRegistry $doctrine){
         $UpdateInformation = $form->getData();
         $em->persist($UpdateInformation);
         $em->flush();
+        return $this->redirectToRoute('app_user_space');
     }
     return $this->render('espace_client/modif_info.html.twig', [
         'UpdateInformation' => $form->createView()
     ]);
 }
 
-# Fonction inscription client
-    #[Route('/ajouter_vehicule', name: 'app_ajout_vehicule')]
+# Fonction  Vehicule
+    #[Route('/{id}/ajouter_vehicule', name: 'app_ajout_vehicule')]
     public function addVehicule(Request $request, ManagerRegistry $doctrine): Response
     {
+        // Client
+        $id = $request->get('id');
+        #$em = $doctrine->getManager();
+        #$client = $em->getRepository(Client::class)->findAll($id);
+        #$role = "ROLE_PROPRIETAIRE";
+
+        // Véhicule
         $em = $doctrine->getManager();
         $vehicule = $em->getRepository(Vehicule::class)->findAll();
 
         $vehicule = new Vehicule();
-
         $form = $this->createForm(VehiculeType::class, $vehicule);
         $form->handleRequest($request);
-    
+
+        $user = $this->getUser();
+        #$user -> setRoles(array('ROLE_USER',$role));
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $doctrine->getManager();
+            $vehicule -> setIdClient($user);
             $em->persist($vehicule);
             $em->flush();
+            $this->addFlash("success", "Voiture enregistrée");
+            return $this->redirectToRoute('app_mes_vehicules', array('id' => $id));
         }
         return $this->render('espace_client/ajout_vehicule.html.twig', [
             'Vehicule' => $form->createView(),
         ]);
     }
-
-    #[Route('/change_password', name: 'app_change_password')]
-    public function change_password(Request $request, ManagerRegistry $doctrine){
-        return $this->render('espace_client/change_password.html.twig', [
+# Fonction affichage Mes véhicules
+    #[Route('/{id}/MesVehicules', name: 'app_mes_vehicules')]
+    public function MesVehicules(String $id = null,ManagerRegistry $doctrine): Response{
+        $em = $doctrine ->getManager() ;
+        $vehicule = $em->getRepository(Vehicule::class)-> findBy(['id_client'=> $id]);
+        foreach ($vehicule as $data) {
+            $idVehicule = $data -> getId();
+            $immatricule = $data -> getImmatricule();
+            $marque = $data -> getMarque();
+            $modele = $data -> getId_Client();
+            $num_serie = $data -> getNum_Serie();
+            $couleur = $data -> getCouleur();
+            $nb_kilometre = $data -> getNb_Kilometre();
+            $date_achat = $data -> getDate_Achat();
+            $prix_achat = $data -> getPrix_Achat();
+        }
+        return $this->render('espace_client/MesVehicules.html.twig', [
+            'vehicule' => $vehicule,
         ]);
+    }
+
+    #Fonction suppression Véhicule
+    #[Route(path: '/MesVehicules/{id}', name: 'app_supp_vehicule')]
+    public function delete(Request $request, Vehicule $vehicule = null, ManagerRegistry $d): Response{
+        $idUser = $request->get('idUser');
+        if ($vehicule == null) {
+            $this-> addFlash('danger', 'Vehicule introuvable');
+            return $this -> redirectToRoute('app_mes_vehicules', array('id' => $idUser));
+        }
+        $em= $d -> getManager();
+        $em -> remove($vehicule);
+        $em -> flush();
+        $this->addFlash('warning', 'Vehicule supprimée');
+        return $this->redirectToRoute('app_mes_vehicules', array('id' => $idUser));
     }
 
 #Fonction déconnexion
