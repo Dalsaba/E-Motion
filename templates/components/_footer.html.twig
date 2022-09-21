@@ -1,25 +1,4 @@
-{#<footer class="flex justify-between items-center md:flex-row gap-y-4 px-5 py-4 bg-orange-500">#}
-{#    <p>© {{ "now"|date("Y") }} E-Motion. Tous droits réservés.</p>#}
-{#    <ul class="flex">#}
-{#        <li class="mx-[5px]">#}
-{#            <a class="text-blue-600 hover:text-blue-500 p-2" href="{{ path('app_mentions_legales') }}">#}
-{#                Mentions légales#}
-{#            </a>#}
-{#        </li>#}
-{#        <li class="mx-[5px]">#}
-{#            <a class="text-blue-600 hover:text-blue-500 p-2" href="{{ path('app_politique_confidentialite') }}">#}
-{#                Politique de confidentialité#}
-{#            </a>#}
-{#        </li>#}
-{#        <li class="mx-[5px]">#}
-{#            <a class="text-blue-600 hover:text-blue-500 p-2" href="{{ path('app_cgv') }}">#}
-{#                Conditions générales de vente#}
-{#            </a>#}
-{#        </li>#}
-{#    </ul>#}
-{#</footer>#}
-
-<footer class="bg-blue-600">
+<footer class="bg-blue-600 pb-6">
     <div class="container mx-auto px-8">
         <div class="w-full flex flex-col md:flex-row py-6">
             <div class="flex-1 mb-6 text-black">
@@ -27,7 +6,6 @@
                     <!--Icon from: http://www.potlabicons.com/ -->
                     <svg class="h-8 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.005 512.005">
                     </svg>
-
                 </a>
             </div>
             <div class="flex-1">
@@ -88,6 +66,6 @@
                 </ul>
             </div>
         </div>
+        <p class="text-white text-center">© {{ "now"|date("Y") }} <a href="{{ accueil_url }}">E-Motion</a>. Tous droits réservés.</p>
     </div>
-    <a href="https://www.freepik.com/free-photos-vectors/background" class="text-white">E-Motion. Tous droits réservés.</a>
 </footer>

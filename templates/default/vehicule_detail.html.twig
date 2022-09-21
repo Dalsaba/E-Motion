@@ -1,3 +1,5 @@
+{% block title %}Détails {{ vehicule.modele }} | E-Motion{% endblock %}
+
 {% extends 'base.html.twig' %}
 
 {% block body %}
@@ -9,10 +11,10 @@
         <tr class="flex">
             <td class="w-4/5 grid justify-items-center flex items-center">
                 Modèle : {{ vehicule.modele }} <br/>
-                N° serie : {{ vehicule.numSerie }} <br/>
+                N° série : {{ vehicule.numSerie }} <br/>
                 Couleur: {{ vehicule.couleur }} <br/>
                 Nb de kilomètres : {{ vehicule.nbKilometre }} <br/>
-                Prix d'achat: {{ vehicule.prixAchat }} <br/>
+                Prix d'achat : {{ vehicule.prixAchat }} €<br/>
                 {%if app.user%}
                     <a href="{{ path('reservation', {'id' : vehicule.id}) }}"
                        class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
