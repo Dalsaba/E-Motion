@@ -2,27 +2,72 @@
 {% block title %}Mes véhicules | E-Motion{% endblock %}
 
 {% block body %}
-<b><h1>Mes véhicules</h1></b>
-<a href="{{path('app_ajout_vehicule', {id: app.user.id})}}">Ajouter vos véhicules ici</a>
-    <ul>
-        {% for v in vehicule %}
-            <li>
-                {{v.immatricule}}
-                {{v.marque}}
-                {{v.modele}}
-                {{v.num_serie}}
-                {{v.couleur}}
-                {{v.nb_kilometre}}
-                {{v.date_achat | date('d-m-Y') }}
-                {{v.prix_achat}}
-                {{v.Classe.name}}
-            </li>
-        <a onclick="myFunction()" href="{{path('app_supp_vehicule',{idUser: app.user.id, id: v.id})}}">Supprimer</a>
-        <br>
-        <a href="{{path('app_modif_vehicule',{idUser: app.user.id, id: v.id})}}">Editer</a>
-        <hr>
-        {% endfor %}
-    </ul>
+<section class="w-full">
+    <div class="container mx-auto flex flex-col flex-wrap items-center justify-center">
+        <h1 class="w-full mt-6 mb-2 text-5xl font-bold leading-tight text-center text-gray-800">
+            Mes véhicules
+        </h1>
+
+        {% if vehicule is empty %}
+            <p class="text-center">Vous n'avez pas de véhicule !</p>
+            <a class="mx-auto lg:mx-0 lg:mt-16 lg:mb-16 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                href="{{ path('app_ajout_vehicule', {id: app.user.id}) }}">
+                Ajouter vos véhicules ici
+            </a>
+        {% else %}
+            <a class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                href="{{ path('app_ajout_vehicule', {id: app.user.id}) }}">
+                Ajouter vos véhicules ici
+            </a>
+
+            <div class="max-w-7xl w-full mb-4 mx-auto flex flex-col items-center justify-center">
+                <table class="w-3/4 table-auto border-4 border-sky-300 mb-4">
+                    <thead>
+                        <tr class="min-w-full border-4 border-red-300">
+                            <th class="border-4 border-sky-300">Immatricule</th>
+                            <th class="border-4 border-sky-300">Marque</th>
+                            <th class="border-4 border-sky-300">Modèle</th>
+                            <th class="border-4 border-sky-300">N° de série</th>
+                            <th class="border-4 border-sky-300">Couleur</th>
+                            <th class="border-4 border-sky-300">Nombre de kilomètres</th>
+                            <th class="border-4 border-sky-300">Date d'achat</th>
+                            <th class="border-4 border-sky-300">Prix d'achat</th>
+                            <th class="border-4 border-sky-300">Classe</th>
+                            <th class="border-4 border-sky-300" colspan="2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for v in vehicule %}
+                            <tr class="border-4 border-sky-300">
+                                <td>{{v.immatricule}}</td>
+                                <td>{{v.marque}}</td>
+                                <td>{{v.modele}}</td>
+                                <td>{{v.num_serie}}</td>
+                                <td>{{v.couleur}}</td>
+                                <td>{{v.nb_kilometre}}</td>
+                                <td>{{v.date_achat | date('d-m-Y') }}</td>
+                                <td>{{v.prix_achat}}</td>
+                                <td>{{v.Classe.name}}</td>
+                                <td>
+                                    <a href="{{ path('app_modif_vehicule',{idUser: app.user.id, id: v.id}) }}">
+                                        Editer
+                                    </a>
+                                </td>
+                                <td>
+                                    <a onclick="myFunction()" 
+                                        href="{{ path('app_supp_vehicule',{idUser: app.user.id, id: v.id}) }}">
+                                        Supprimer
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
 {% block javascripts %}
 <script>
     function myFunction() {
