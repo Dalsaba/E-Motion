@@ -3,17 +3,33 @@
 {% set has_role_proprietaire = is_granted('ROLE_PROPRIETAIRE') %}
 {% set has_role_admin = is_granted('ROLE_ADMIN') %}
 <!DOCTYPE html>
-<html style="height : 97%;">
+<html>
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>
-        Tailwind Starter Template - Landing Page Template: Tailwind Toolbox
-    </title>
-    <meta name="description" content="Simple landind page" />
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
+    {% block meta %}
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>{% block title %}{% block page_title '' %} | {% block app_title 'E-Motion' %}{% endblock %}</title>
+        <meta property="title" content="E-Motion">
+        <meta name="description" content="{% block meta_description %}Plate-forme de location de véhicules électriques{% endblock %}" />
+        <link rel="canonical" href="{% block canonical_url accueil_url %}" />
+        <meta name="theme-color" content="#f97316">
+        <meta name="keywords" content="E-Motion, location, véhicule, électrique, voiture, scooter" />
+        {% block open_graph %}
+            <meta property="og:locale" content="fr_FR">
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="{% block open_graph_title block('title') %}" />
+            <meta property="og:description" content="{% block open_graph_description block('meta_description') %}" />
+            <meta property="og:url" content="{% block open_graph_url block('canonical_url') %}" />
+            <meta property="og:site_name" content="{% block open_graph_site_name 'E-Motion' %}">
+        {% endblock %}
+    {% endblock %}
+
+    {% block favicons %}
+        {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> #}
+    {% endblock %}
+
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
     <!--Replace with your tailwind.css once created-->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
@@ -23,27 +39,22 @@
             background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
         }
     </style>
-
-    <header>
-        {% block header %}
-            {{ include('components/_header.html.twig') }}
-        {% endblock %}
-    </header>
 </head>
 
     <body class="height: 100%" style="height : 90%;">
+        {% block header %}
+            {{ include('components/_header.html.twig') }}
+        {% endblock %}
 
-
-
-        <main class="grid justify-items-center w-full" style="height : 90%; width: 100%; overflow: scroll;">
+        <main class="grid justify-items-center w-full">
             {% block body %}{% endblock %}
         </main>
 
-        <footer style="position: relative; bottom: 2% ; width: 100%;">
+        {# <footer style="position: relative; bottom: 2% ; width: 100%;"> #}
             {% block footer %}
                 {{ include('components/_footer.html.twig') }}
             {% endblock %}
-        </footer>
+        {# </footer> #}
     </body>
 
 </html>

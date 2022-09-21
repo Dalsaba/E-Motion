@@ -12,12 +12,12 @@
         {{ form_row(UpdateInformation.email) }}
         {{ form_row(UpdateInformation.adresse) }}
         {{ form_row(UpdateInformation.telephone) }}
-    <a style="color:#2563EB" href="/politique_de_confidentialite">En validant mon opération, je clame que les informations me concernant sont exactes</a>
+    <a style="color:#2563EB" href="{{ path('app_politique_confidentialite') }}">En validant mon opération, je clame que les informations me concernant sont exactes</a>
     <input type="checkbox" name="valid_term" required/>
         <br>
     <button style="background-color: cyan;" type="submit" class="btn">Valider</button>
     <button>
-        <a href="/espace_client">Annuler</a>
+        <a href="{{ path('app_user_space') }}">Annuler</a>
     </button>
     {{ form_end(UpdateInformation) }}
 </div>

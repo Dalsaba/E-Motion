@@ -3,9 +3,6 @@
 {% block title %}Accueil | E-Motion{% endblock %}
 
 {% block body %}
-    <html lang="en">
-    <body class="leading-normal tracking-normal text-white gradient"
-          style="font-family: 'Source Sans Pro', sans-serif;">
 
     {% if not app.user %}
 
@@ -13,23 +10,21 @@
             <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
                 <!--Left Col-->
                 <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-                    <p class="uppercase tracking-loose w-full">Vous cherchez une voiture ou un scooter?</p>
+                    <p class="uppercase tracking-loose w-full">Vous cherchez une voiture ou un scooter ?</p>
                     <h1 class="my-4 text-5xl font-bold leading-tight">
-                        Emotion vous trouve le vehicule idéal !
+                        E-Motion vous trouve le véhicule idéal !
                     </h1>
                     <p class="leading-normal text-2xl mb-8">
                         Connectez vous pour réaliser une location.
                     </p>
-                    <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-                            onclick="location.href='/connexion_client'">
-                        Cliquez ici!
-                    </button>
+                    <a class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                        href="{{ path('app_connexion_client') }}">
+                        Cliquez ici !
+                    </a>
                 </div>
                 <!--Right Col-->
                 <div class="w-full md:w-3/5 py-6 text-center">
-                    <img class="w-full  z-50"
-                         src="{{ asset ('picture/car.png') }}"
-                    />
+                    <img class="w-full z-50" src="{{ asset ('picture/car.png') }}" />
                 </div>
             </div>
         </div>
@@ -68,11 +63,10 @@
 
     {% endif %}
 
-
     <section class="bg-white border-b py-8">
         <div class="container mx-auto flex flex-wrap pt-4 pb-12">
-            <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-                <br/><br/><br/><br/>Nos véhicules
+            <h2 class="w-full mt-6 mb-2 text-5xl font-bold leading-tight text-center text-gray-800">
+                Nos véhicules
             </h2>
             <div class="w-full mb-4">
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
@@ -91,7 +85,7 @@
                     {% endif %}
                     {% endfor %}
                     <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
-                        <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+                        <a href="{{ path('vehicule_detail', {'id' : v.id}) }}" class="flex flex-wrap no-underline hover:no-underline">
                             <img
                                     src="{{ asset ('picture/picture.png') }}"
                                     alt="i"
@@ -110,12 +104,12 @@
                     </div>
                     <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
                         <div class="flex items-center justify-start">
-                            <form action="{{ path('vehicule_detail', {'id' : v.id}) }}" method="post">
-                                <button
-                                        class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-                                        type="submit"> Voir
-                                </button>
-                            </form>
+                            {# <form action="{{ path('vehicule_detail', {'id' : v.id}) }}" method="post"> #}
+                                <a
+                                    class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                                    href="{{ path('vehicule_detail', {'id' : v.id}) }}">Voir
+                                </a>
+                            {# </form> #}
                         </div>
                     </div>
                 </div>
@@ -124,7 +118,6 @@
 
         </div>
     </section>
-
 
     <!-- jQuery if you need it
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -212,7 +205,4 @@
             return false;
         }
     </script>
-    </body>
-    </html>
-
 {% endblock %}
