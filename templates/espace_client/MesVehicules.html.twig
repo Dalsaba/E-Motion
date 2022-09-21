@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title %}Espace client | E-Motion{% endblock %}
+
+{% block body %}
+<b><h1>Mes véhicule</h1></b>
+<a href="{{path('app_ajout_vehicule', {id: app.user.id})}}">Ajouter vos véhicules ici</a>
+    <ul>
+        {% for v in vehicule %}
+            <li>
+                {{v.immatricule}}
+                {{v.marque}}
+                {{v.modele}}
+                {{v.num_serie}}
+                {{v.couleur}}
+                {{v.nb_kilometre}}
+                {{v.date_achat | date('d-m-Y') }}
+                {{v.prix_achat}}
+            </li>
+        <a onclick="myFunction()" href="{{path('app_supp_vehicule',{idUser: app.user.id, id: v.id})}}">Supprimer</a>
+        <a href="">Editer</a>
+        <hr>
+        {% endfor %}
+    </ul>
+{% block javascripts %}
+<script>
+    function myFunction() {
+    let text = "Voulez vous supprimer ce véhicule ?\n(OK)Oui      (Annuler)NON.";
+        if (confirm(text) == true) {
+            text = "You pressed OK!";
+            return true;
+        }
+        else{
+            event.preventDefault();
+            return false;
+        }
+    }
+</script>
+{% endblock %}
+{% endblock %}

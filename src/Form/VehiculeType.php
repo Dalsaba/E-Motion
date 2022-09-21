@@ -26,16 +26,14 @@ class VehiculeType extends AbstractType
             ->add('num_serie', IntegerType::class, array('label' => 'N° série', 'attr' => ['min' => 0]))
             ->add('couleur', TextType::class, array('label' => 'Couleur'))
             ->add('nb_kilometre', IntegerType::class, array('label' => 'Nombre de Kilomètre','attr' => ['min' => 0]))
-            ->add('date_achat', DateType::class, array('label' => 'Data achat', 'format' => 'yyyy-MM-dd',))
+            ->add('date_achat', DateType::class, array('label' => 'Data achat', 'format' => 'yyyy-MM-dd', 'years' => range(date('Y'), 1885)))
             ->add('prix_achat', IntegerType::class, array('label' => 'Prix', 'attr' => ['min' => 0]))
-            ->add('Classe', )
             ->add('Classe', EntityType::class, [
                 'class' => VehiculeClasse::class,
                 'choice_label' => function(VehiculeClasse $Vehicule) {
                     return sprintf('(%d) %s', $Vehicule->getId(), $Vehicule->getName());
                 }
             ]);
-            //ChoiceType::class, array('label' => 'Type de véhicule','choices' => ["OK"]))
     }
 
     public function configureOptions(OptionsResolver $resolver): void

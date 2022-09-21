@@ -50,6 +50,10 @@ class Vehicule
     #[ORM\ManyToOne(inversedBy: 'vehicules')]
     private ?VehiculeClasse $Classe = null;
 
+    #[ORM\ManyToOne(inversedBy: 'id_vehicule')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Client $id_client = null;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -91,6 +95,17 @@ class Vehicule
         return $this;
     }
 
+    public function getNum_Serie(): ?string
+    {
+        return $this->num_serie;
+    }
+
+    public function setNum_Serie(string $num_serie): self
+    {
+        $this->num_serie = $num_serie;
+
+        return $this;
+    }
     public function getNumSerie(): ?string
     {
         return $this->num_serie;
@@ -127,12 +142,36 @@ class Vehicule
         return $this;
     }
 
+    public function getNb_Kilometre(): ?int
+    {
+        return $this->nb_kilometre;
+    }
+
+    public function setNb_Kilometre(int $nb_kilometre): self
+    {
+        $this->nb_kilometre = $nb_kilometre;
+
+        return $this;
+    }
+
     public function getDateAchat(): ?\DateTimeInterface
     {
         return $this->date_achat;
     }
 
     public function setDateAchat(\DateTimeInterface $date_achat): self
+    {
+        $this->date_achat = $date_achat;
+
+        return $this;
+    }
+
+    public function getDate_Achat(): ?\DateTimeInterface
+    {
+        return $this->date_achat;
+    }
+
+    public function setDate_Achat(\DateTimeInterface $date_achat): self
     {
         $this->date_achat = $date_achat;
 
@@ -151,6 +190,18 @@ class Vehicule
         return $this;
     }
 
+    public function getPrix_Achat(): ?int
+    {
+        return $this->prix_achat;
+    }
+
+    public function setPrix_Achat(int $prix_achat): self
+    {
+        $this->prix_achat = $prix_achat;
+
+        return $this;
+    }
+
     public function getClasse(): ?VehiculeClasse
     {
         return $this->Classe;
@@ -163,32 +214,31 @@ class Vehicule
         return $this;
     }
 
-    /**
-     * @return Collection<int, Location>
-     */
-/*
-    public function getLocations(): Collection
+    public function getIdClient(): ?Client
     {
-        return $this->locations;
+        return $this->id_client;
     }
-    public function addLocation(Location $location): self
+    
+    public function setIdClient(?Client $id_client): self
     {
-        if (!$this->locations->contains($location)) {
-            $this->locations->add($location);
-            $location->addVehiculeID($this);
-        }
+        $this->id_client = $id_client;
+    
         return $this;
     }
-    public function removeLocation(Location $location): self
+
+    public function getId_Client(): ?Client
     {
-        if ($this->locations->removeElement($location)) {
-            $location->removeVehiculeID($this);
-        }
+        return $this->id_client;
+    }
+    
+    public function setId_Client(?Client $id_client): self
+    {
+        $this->id_client = $id_client;
+    
         return $this;
     }
-/*
+
     public function __toString(){
-        return (string) $this->immatricule.''.$this->marque.''.$this->modele.''.$this->num_serie.''.$this->couleur;
+        return $this->id_client;
     }
-*/
 }

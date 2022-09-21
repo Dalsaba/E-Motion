@@ -1,22 +1,24 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Espace client | E-Motion{% endblock %}
 
 {% block body %}
 <div>
     {% if app.user %}
     <b><h1>Espace Client</h1></b>
-    <ul>
-        <a href="{{path('app_change_password')}}"><li>Changer de mot de passe</li></a>
-        <a href="{{path('app_modif_info', {id: app.user.id})}}"><li>Modifier information personnel</li></a>
-        <a href="{{path('app_historique_commande')}}"><li>Historique des commandes</li></a>
-    </ul>
+    <b><h2>Information personnel</h2></b>
+    <p>Nom: {{app.user.nom}}</p>
+    <p>Prénom: {{app.user.prenom}}</p>
+    <p>Email: {{app.user.email}}</p>
+    <p>Adresse: {{app.user.adresse}}</p>
+    <p>Telephone: {{app.user.telephone}}</p>
+    <b><h2>Action possible</h2></b>
+    <a href="{{path('app_modif_info', {id: app.user.id})}}"><li>Modifier information personnel</li></a>
     <b><h1>Espace Professionnel</h1></b>
+    {% if is_granted('ROLE_PROPRIETAIRE') == false %}
     <p>Pour devenir professionnel, veuillez ajouter un véhicule</p>
-        <a href="{{path('app_ajout_vehicule')}}"><li>Ajouter un véhicule</li></a>
-        {% if is_granted('ROLE_PROPRIETAIRE') %}
-        <a href="{#{path('app_mes_vehicules')}#}"><li>Mes véhicules</li></a>
-        {% endif %}
+    {% endif %}
+        <a href="{{path('app_ajout_vehicule',{id: app.user.id})}}"><li>Ajouter un véhicule</li></a>
+        <a href="{{path('app_mes_vehicules',{id: app.user.id})}}"><li>Mes véhicules</li></a>
     {% else %}
         <a href="{{path('app_connexion_client')}}"><h1>Veuillez vous connecter avant</h1></a>
     {% endif %}
