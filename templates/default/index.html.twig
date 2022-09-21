@@ -71,51 +71,67 @@
             <div class="w-full mb-4">
                 <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
+            {% if vehicule is not empty %}
+                {% for v in vehicule %}
+                {% for c in classes %}
 
-            {% for v in vehicule %}
-            {% for c in classes %}
-
-                {% if v.classe == c %}
+                    {% if v.classe == c %}
 
 
-                <div class="w-full md:w-1/6 p-6 flex flex-col flex-shrink">
-                    <button class="flex px-3 py-2 bg-red-500 mr-1 text-white font-semibold rounded">
-                        <span class="ml-1"> {{ c.prix }} € / jour</span>
-                    </button>
-                    {% endif %}
-                    {% endfor %}
-                    <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
-                        <a href="{{ path('vehicule_detail', {'id' : v.id}) }}" class="flex flex-wrap no-underline hover:no-underline">
-                            <img
-                                    src="{{ asset ('picture/picture.png') }}"
-                                    alt="i"
-                                    class="w-3/4"
-                                    style="">
-                            <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-                                {{ v.marque }} - {{ v.dateAchat | date('Y') }}
-                            </p>
-                            <div class="w-full font-bold text-xl text-gray-800 px-6">
-                                Modèle : {{ v.modele }}
+                    <div class="w-full md:w-1/6 p-6 flex flex-col flex-shrink">
+                        <button class="flex px-3 py-2 bg-red-500 mr-1 text-white font-semibold rounded">
+                            <span class="ml-1"> {{ c.prix }} € / jour</span>
+                        </button>
+                        {% endif %}
+                        {% endfor %}
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+                            <a href="{{ path('vehicule_detail', {'id' : v.id}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img
+                                        src="{{ asset ('picture/picture.png') }}"
+                                        alt="i"
+                                        class="w-3/4"
+                                        style="">
+                                <p class="w-full text-gray-600 text-xs md:text-sm px-6">
+                                    {{ v.marque }} - {{ v.dateAchat | date('Y') }}
+                                </p>
+                                <div class="w-full font-bold text-xl text-gray-800 px-6">
+                                    Modèle : {{ v.modele }}
+                                </div>
+                                <p class="text-gray-800 text-base px-6 mb-5">
+                                    Lorem ipsum ...
+                                </p>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                            <div class="flex items-center justify-start">
+                                {# <form action="{{ path('vehicule_detail', {'id' : v.id}) }}" method="post"> #}
+                                    <a
+                                        class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                                        href="{{ path('vehicule_detail', {'id' : v.id}) }}">Voir
+                                    </a>
+                                {# </form> #}
                             </div>
-                            <p class="text-gray-800 text-base px-6 mb-5">
-                                Lorem ipsum ...
-                            </p>
-                        </a>
-                    </div>
-                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-                        <div class="flex items-center justify-start">
-                            {# <form action="{{ path('vehicule_detail', {'id' : v.id}) }}" method="post"> #}
-                                <a
-                                    class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-                                    href="{{ path('vehicule_detail', {'id' : v.id}) }}">Voir
-                                </a>
-                            {# </form> #}
                         </div>
                     </div>
+
+                {% endfor %}
+            {% else %}
+                <div class="w-full flex flex-col items-center justify-center">
+                    <p class="leading-normal text-2xl text-center my-6">Aucun véhicule n'a été mis en location pour le moment.</p>
+                    <p class="uppercase tracking-loose mb-8">Vous souhaitez mettre un véhicule en location ?</p>
+                    {% if app.user %}
+                        <a class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                            href="{{ path('app_ajout_vehicule',{id: app.user.id}) }}">
+                            Cliquez ici !
+                        </a>
+                    {% else %}
+                        <a class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                            href="{{ path('app_connexion_client') }}">
+                            Cliquez ici !
+                        </a>
+                    {% endif %}
                 </div>
-
-            {% endfor %}
-
+            {% endif %}
         </div>
     </section>
 
