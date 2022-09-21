@@ -15,19 +15,24 @@
                 Couleur: {{ vehicule.couleur }} <br/>
                 Nb de kilomètres : {{ vehicule.nbKilometre }} <br/>
                 Prix d'achat : {{ vehicule.prixAchat }} €<br/>
-                {%if app.user%}
-                    <a href="{{ path('reservation', {'id' : vehicule.id}) }}"
-                       class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-                    >
-                        {{'Louer' | trans}}
-                    </a>
-                {%else%}
+                {% if app.user %}
+                {% if vehicule.id_client.id != app.user.id %}
+                <ul>
+                        <a href="{{ path('reservation', {'id' : vehicule.id}) }}"
+                           class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                        >
+                            {{'Louer' | trans}}
+                        </a>
+                {% endif %}
+                <a class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" href="{{path('app_default')}}">Retour</a>
+                {% else %}
                     <a href="{{ path('app_connexion_client') }}"
                        class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
                     >
                         {{'Connexion' | trans}}
                     </a>
-                {%endif%}
+                </ul>
+                {% endif %}
 
             </td>
             </td>
