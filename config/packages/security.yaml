@@ -17,9 +17,9 @@ security:
       lazy: true
       provider: app_user_provider
       form_login:
-          # "app_login" is the name of the route created previously
-          login_path: app_connexion_client
-          check_path: app_connexion_client
+        # "app_login" is the name of the route created previously
+        login_path: app_connexion_client
+        check_path: app_connexion_client
       logout:
         path: app_logout
 
@@ -30,16 +30,19 @@ security:
       # switch_user: true
 
   role_hierarchy:
-    ROLE_ADMIN: ROLE_ADMIN
-    ROLE_PROPRIETAIRE: ROLE_PROPRIETAIRE
+    ROLE_ADMIN: ROLE_PROPRIETAIRE
+    ROLE_PROPRIETAIRE: ROLE_USER
     ROLE_USER: ROLE_USER
 
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-    # - { path: ^/admin, roles: ROLE_ADMIN }
-    - { path: ^/espace_client, roles: ROLE_USER }
-    # - { path: ^/profile, roles: ROLE_USER }
+    - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/change_password, roles: ROLE_USER }
+    - { path: ^/(espace_client|facture|panier), roles: ROLE_USER }
+    - { path: ^/(stripe|success|cancel), roles: ROLE_USER }
+    - { path: /(ajouter_vehicule|MesVehicules), roles: ROLE_USER }
+    # - { path: /MesVehicules, roles: ROLE_PROPRIETAIRE }
 
 when@test:
   security:
