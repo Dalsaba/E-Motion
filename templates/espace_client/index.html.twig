@@ -5,11 +5,6 @@
 <div>
     {% if app.user %}
     <b><h1>Espace Client</h1></b>
-    <ul>
-        <a class="hover:text-blue-800" href="{{path('app_change_password')}}"><li>Changer de mot de passe</li></a>
-        <a class="hover:text-blue-800" href="{{path('app_modif_info', {id: app.user.id})}}"><li>Modifier vos informations personnelles</li></a>
-        <a class="hover:text-blue-800" href="{{path('app_historique')}}"><li>Historique des commandes</li></a>
-    </ul>
     <b><h2>Information personnel</h2></b>
     <p>Nom: {{app.user.nom}}</p>
     <p>Prénom: {{app.user.prenom}}</p>
@@ -17,7 +12,7 @@
     <p>Adresse: {{app.user.adresse}}</p>
     <p>Telephone: {{app.user.telephone}}</p>
     <b><h2>Action possible</h2></b>
-    <a href="{{path('app_modif_info', {id: app.user.id})}}"><li>Modifier information personnel</li></a>
+    <a class="hover:text-blue-800" href="{{path('app_modif_info', {id: app.user.id})}}"><li>Modifier information personnel</li></a>
     <b><h1>Espace Professionnel</h1></b>
     {% if is_granted('ROLE_PROPRIETAIRE') == false %}
     <p>Pour devenir professionnel, veuillez ajouter un véhicule</p>
