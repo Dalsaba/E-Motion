@@ -23,10 +23,12 @@ class DefaultController extends AbstractController
     {
         $em = $doctrine ->getManager() ;
         $vehicule = $em -> getRepository(Vehicule::class)-> findAll();
+        $classes = $em -> getRepository(VehiculeClasse::class)-> findAll();
 
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
             'vehicule'=> $vehicule,
+            'classes'=> $classes,
 
         ]);
     }
@@ -79,7 +81,7 @@ class DefaultController extends AbstractController
         $idClient = $user->getId();
         $c = $em -> getRepository(Client::class)-> findOneBy(['id' => $idClient]);
         $vehiculeClass = $vehicule ->getClasse();
-
+        $vehiculeClasseInfo = $em -> getRepository(VehiculeClasse::class)-> findOneBy(['id' => $vehiculeClass]);
 
         // création d'un objet vide pour le form
         $resa = new Location();
@@ -123,6 +125,7 @@ class DefaultController extends AbstractController
             'controller_name' => 'reservationController',
             'vehicule'=> $vehicule,
             'reservation' => $reservation,
+            'vehiculeClasseInfo' => $vehiculeClasseInfo,
             'ajout'=> $form -> createView(),  // retourne la version html du form
 
         ]);
