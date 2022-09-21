@@ -70,12 +70,12 @@ class DefaultController extends AbstractController
     {
 
         if ($vehicule == null) {
-            $this-> addFlash('danger', 'Article introuvable');
+            $this-> addFlash('danger', 'Erreur veuillez réessayer');
 
             return $this -> redirectToRoute('app_default');
         }
 
-
+        $idVehicule = $request->get('id');
         //connexion  à la base
         $em = $doctrine ->getManager() ;
         $idClient = $user->getId();
@@ -91,6 +91,10 @@ class DefaultController extends AbstractController
         $form -> handleRequest($request);
         // si le formulaire a été soumis
         if ($form-> isSubmitted()) {
+            if($resa->getDateDeDebut() > $resa->getDateDeFin()){
+                $this-> addFlash('danger', 'La date de début ne peut pas être supérieur à la date de fin');
+                return $this -> redirectToRoute('reservation', array('id' => $idVehicule));
+            }
             $diff = $resa ->getDateDeFin() -> diff($resa ->getDateDeDebut()); // on fait la diff
             $diff->format("days");
             $nb = $diff->days;

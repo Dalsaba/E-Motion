@@ -18,9 +18,11 @@ class LocationType extends AbstractType
         $builder
             ->add('DateDeDebut', DateType::class, [
                 'label' => 'Date de début',
+                'years' => range(date('Y'), date('Y')+50),
             ])
             ->add('DateDeFin', DateType::class, [
                 'label' => 'Date de fin',
+                'years' => range(date('Y'), date('Y')+50),
             ])
             ->add('Sauvegarder', SubmitType::class, [
                 'label' => 'Panier!',
