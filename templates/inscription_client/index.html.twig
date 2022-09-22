@@ -6,18 +6,18 @@
 <div>
     <h1>Espace de connexion</h1>
      {{ form_start(InscriptionClient) }}
-        {{ form_row(InscriptionClient.email) }}
-        {{ form_row(InscriptionClient.password) }}
-        {{ form_row(InscriptionClient.nom) }}
-        {{ form_row(InscriptionClient.prenom) }}
-        {{ form_row(InscriptionClient.dateNaissance) }}
-        {{ form_row(InscriptionClient.adresse) }}
-        {{ form_row(InscriptionClient.telephone) }}
-        {{ form_row(InscriptionClient.numeroPermis) }}
+        {{ form_row(InscriptionClient.email, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(InscriptionClient.password, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(InscriptionClient.nom, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(InscriptionClient.prenom, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(InscriptionClient.dateNaissance)}}
+        {{ form_row(InscriptionClient.adresse, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(InscriptionClient.telephone, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(InscriptionClient.numeroPermis, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
         <a style="color:#2563EB" href="{{ path('app_cgv') }}">Accepter les termes et conditions</a>
         <input type="checkbox" name="valid_term" required/>
         <br>
-        <button style="background-color: cyan;" type="submit" class="btn">Valider</button>
+        <button type="submit" class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Valider</button>
         <button>
             <a href="{{ path('app_connexion_client') }}">Retour</a>
         </button>

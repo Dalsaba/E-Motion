@@ -7,8 +7,8 @@ use App\Entity\Vehicule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -35,20 +35,23 @@ class LocationController extends AbstractController
             $idlocation = ($data -> getId());
         }
 
-
-
-
+        // Récupérer les points de fidélités
+        $idPoint = $em->getRepository(Location::class)-> count(['Statut'=>'Terminé', 'ClientID' => $user->getId()]);
+        
         return $this->render('location/index.html.twig', [
             'controller_name' => 'PanierController',
             'locationClient'=> $location,
             'totalPrice'=> $totalPrice,
             'idlocation'=> $idlocation,
+            'idPoint' => $idPoint,
         ]);
     }
 
     #[Route('/stripe', name: 'stripe')]
-    public function stripe (ManagerRegistry $doctrine, UserInterface $user)
+    public function stripe (Request $request, ManagerRegistry $doctrine, UserInterface $user)
     {
+        $idPoint = $request->get('idPoint');
+
         $em = $doctrine ->getManager() ;
 
         $location = $em->getRepository(Location::class)-> findBy(['Statut'=> 'Panier', 'ClientID' => $user->getId()]);
@@ -67,7 +70,7 @@ class LocationController extends AbstractController
             'line_items' => [[
                 # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
                 'price' => 'price_1LjiWAHIeun4UQSxmvR2lq7i',
-                'quantity' => 1 * $totalPrice,
+                'quantity' => 1 * $totalPrice - $idPoint,
 
             ]],
             'mode' => 'payment',

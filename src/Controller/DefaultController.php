@@ -24,7 +24,7 @@ class DefaultController extends AbstractController
         $em = $doctrine ->getManager() ;
         $vehicule = $em -> getRepository(Vehicule::class)-> findAll();
         $classes = $em -> getRepository(VehiculeClasse::class)-> findAll();
-
+        
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
             'vehicule'=> $vehicule,

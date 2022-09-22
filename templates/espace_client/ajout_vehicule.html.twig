@@ -6,20 +6,20 @@
 <div>
     <b><h1>Ajouter un véhicule</h1></b>
      {{ form_start(Vehicule) }}
-        {{ form_row(Vehicule.immatricule) }}
-        {{ form_row(Vehicule.marque) }}
-        {{ form_row(Vehicule.modele) }}
-        {{ form_row(Vehicule.num_serie) }}
-        {{ form_row(Vehicule.couleur) }}
-        {{ form_row(Vehicule.nb_kilometre) }}
-        {{ form_row(Vehicule.date_achat) }}
-        {{ form_row(Vehicule.prix_achat) }}
+        {{ form_row(Vehicule.immatricule, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(Vehicule.marque, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(Vehicule.modele, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(Vehicule.num_serie, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(Vehicule.couleur, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(Vehicule.nb_kilometre, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(Vehicule.date_achat)}}
+        {{ form_row(Vehicule.prix_achat, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
         {{ form_row(Vehicule.Classe) }}
         <a style="color:#2563EB" href="/cgv">Accepter les termes et conditions</a>
         <input type="checkbox" name="valid_term" required/>
         <br>
-        <button style="background-color: cyan;" type="submit" class="btn">Valider</button>
-    {{ form_end(Vehicule) }}
+        <button type="submit" class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Valider</button>
         <a href="{{path('app_user_space')}}">Annuler</a>
+        {{ form_end(Vehicule) }}
 </div>
 {% endblock %}
