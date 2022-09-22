@@ -2,23 +2,22 @@
 {% block title %}Modifier les informations du véhicule | E-Motion{% endblock %}
 
 {% block body %}
-    <a href="{{path('app_user_space')}}">Retour menu</a>
     <h1>Modification informations véhicule</h1>
 <div>
     {{ form_start(UpdateInformation) }}
-        {{ form_row(UpdateInformation.immatricule) }}
-        {{ form_row(UpdateInformation.marque) }}
-        {{ form_row(UpdateInformation.modele) }}
-        {{ form_row(UpdateInformation.num_serie) }}
-        {{ form_row(UpdateInformation.couleur) }}
-        {{ form_row(UpdateInformation.nb_kilometre) }}
+        {{ form_row(UpdateInformation.immatricule, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(UpdateInformation.marque, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(UpdateInformation.modele, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(UpdateInformation.num_serie, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(UpdateInformation.couleur, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
+        {{ form_row(UpdateInformation.nb_kilometre, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
         {{ form_row(UpdateInformation.date_achat) }}
-        {{ form_row(UpdateInformation.prix_achat) }}
+        {{ form_row(UpdateInformation.prix_achat, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
         {{ form_row(UpdateInformation.Classe) }}
     <a style="color:#2563EB" href="/politique_de_confidentialite">En validant mon opération, je clame que les informations me concernant sont exactes</a>
     <input type="checkbox" name="valid_term" required/>
         <br>
-    <button style="background-color: cyan;" type="submit" class="btn">Valider</button>
+    <button type="submit" class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Valider</button>
     <button>
         <a href="/espace_client">Annuler</a>
     </button>

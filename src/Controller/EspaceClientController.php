@@ -19,6 +19,7 @@ use App\Form\InscriptionClientType;
 use App\Security\RegistrationAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -77,8 +78,13 @@ class EspaceClientController extends AbstractController
     
 # Fonction fonctionnalite client
     #[Route('/espace_client', name: 'app_user_space')]
-    public function espace_client(): Response{
+    public function espace_client(ManagerRegistry $doctrine, UserInterface $user): Response{
+
+        $em = $doctrine ->getManager() ;
+        $PointFide = $em->getRepository(Location::class)-> count(['Statut'=>'Terminé', 'ClientID' => $user->getId()]);
+
         return $this->render('espace_client/index.html.twig', [
+            'PointFide' => $PointFide,
         ]);
 }
 

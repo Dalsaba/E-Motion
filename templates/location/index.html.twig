@@ -22,6 +22,7 @@
 
     <div class="example-wrapper">
         <h1 class="text-6xl"> Panier </h1><br/><br/>
+        <p>Vous avez <b>{{idPoint}}</b> point(s) de fidélité(s) où 1 point est égal à 1€ en moins.
         {% if locationClient %}
             <table class="table w-full border-4 border-sky-300">
                 <thead>
@@ -56,10 +57,10 @@
 
                 </tbody>
             </table><br/><br/>
-
-            <p> TOTAL : {{ totalPrice }} € TTC </p><br/><br/><br/>
-
-            <form action="{{ path('stripe') }}" method="post">
+            <input type="checkbox" name="price" value="{{idPoint}}" onchange="ReducPrice(this)"> Utiliser la réduction ?</input>
+            <p id="result"> TOTAL : {{ totalPrice }} € TTC </p><br/><br/><br/>
+            <p>
+            <form action="{{ path('stripe', {'idPoint': idPoint}) }}" method="post">
                 <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
                         type="submit"> Payer
                 </button>
@@ -75,6 +76,13 @@
         {% endif %}
     </div>
 
-
+<script type="text/javascript">
+let soustrationTotal = {{totalPrice}};
+let ReducPrice = (elem) => {
+  let value = parseFloat(elem.value.replace(/\$|,/g, ''), 2);
+  elem.checked ? (soustrationTotal -= value) : (soustrationTotal += value);
+  document.getElementById('result').innerHTML =  "TOTAL : "+soustrationTotal+" € TTC";
+};
+</script>
 
 {% endblock %}
