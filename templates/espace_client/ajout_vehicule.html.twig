@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un véhicule | E-Motion{% endblock %}
+
+{% block body %}
+<section>
+    <h1 class="w-full my-6 text-5xl font-bold leading-tight text-center text-gray-800">
+        Ajouter un véhicule
+    </h1>
+     {{ form_start(Vehicule) }}
+        {{ form_row(Vehicule.immatricule) }}
+        {{ form_row(Vehicule.marque) }}
+        {{ form_row(Vehicule.modele) }}
+        {{ form_row(Vehicule.num_serie) }}
+        {{ form_row(Vehicule.couleur) }}
+        {{ form_row(Vehicule.nb_kilometre) }}
+        {{ form_row(Vehicule.date_achat) }}
+        {{ form_row(Vehicule.prix_achat) }}
+        {{ form_row(Vehicule.Classe) }}
+        <a class="text-blue-500" href="{{ path('app_cgv') }}">Accepter les termes et conditions</a>
+        <input type="checkbox" name="valid_term" required/>
+        <br>
+        <div class="flex flex-wrap justify-between">
+           <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                type="submit">
+                    Valider
+            </button>
+            <a class="mx-auto lg:mx-0 hover:underline bg-red-700 text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                href="{{ path('app_user_space') }}">
+                Annuler
+            </a>
+        </div>
+    {{ form_end(Vehicule) }}
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace client | E-Motion{% endblock %}
+
+{% block body %}
+<div>
+    <h1>Espace de connexion</h1>
+     {{ form_start(InscriptionClient) }}
+        {{ form_row(InscriptionClient.email) }}
+        {{ form_row(InscriptionClient.password) }}
+        {{ form_row(InscriptionClient.nom) }}
+        {{ form_row(InscriptionClient.prenom) }}
+        {{ form_row(InscriptionClient.dateNaissance) }}
+        {{ form_row(InscriptionClient.adresse) }}
+        {{ form_row(InscriptionClient.telephone) }}
+        {{ form_row(InscriptionClient.numeroPermis) }}
+        <a style="color:#2563EB" href="{{ path('app_cgv') }}">Accepter les termes et conditions</a>
+        <input type="checkbox" name="valid_term" required/>
+        <br>
+        <button style="background-color: cyan;" type="submit" class="btn">Valider</button>
+        <button>
+            <a href="{{ path('app_connexion_client') }}">Retour</a>
+        </button>
+    {{ form_end(InscriptionClient) }}
+</div>
+{% endblock %}

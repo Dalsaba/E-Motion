@@ -1,0 +1,54 @@
+{% block title %}Détails {{ vehicule.modele }} | E-Motion{% endblock %}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">{{ vehicule.marque }}</h1>
+    <table class="table w-full">
+        <thead>
+        </thead>
+        <tbody>
+        <tr class="flex">
+            <td class="w-4/5 grid justify-items-center flex items-center">
+                Modèle : {{ vehicule.modele }} <br/>
+                N° série : {{ vehicule.numSerie }} <br/>
+                Couleur: {{ vehicule.couleur }} <br/>
+                Nb de kilomètres : {{ vehicule.nbKilometre }} <br/>
+                Prix d'achat : {{ vehicule.prixAchat }} €<br/>
+                Date d'achat : {{vehicule.date_achat | date('d-m-Y') }}</br>
+                Gamme : {{vehicule.Classe.name}}
+                {% if app.user %}
+                {% if vehicule.id_client.id != app.user.id %}
+                <ul>
+                        <a href="{{ path('reservation', {'id' : vehicule.id}) }}"
+                           class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                        >
+                            {{'Louer' | trans}}
+                        </a>
+                {% endif %}
+                <a class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" href="{{path('app_default')}}">Retour</a>
+                {% else %}
+                    <a href="{{ path('app_connexion_client') }}"
+                       class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                    >
+                        {{'Connexion' | trans}}
+                    </a>
+                </ul>
+                {% endif %}
+
+            </td>
+            </td>
+            <td class=" w-1/3">
+            <div class="">
+                                    <img
+                                         src="{{ asset ('picture/picture.png') }}"
+                                         alt="i"
+                                         style="">
+            </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    {% endblock %}

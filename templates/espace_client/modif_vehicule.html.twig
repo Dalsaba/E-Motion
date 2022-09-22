@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier les informations du véhicule | E-Motion{% endblock %}
+
+{% block body %}
+    <a href="{{path('app_user_space')}}">Retour menu</a>
+    <h1>Modification informations véhicule</h1>
+<div>
+    {{ form_start(UpdateInformation) }}
+        {{ form_row(UpdateInformation.immatricule) }}
+        {{ form_row(UpdateInformation.marque) }}
+        {{ form_row(UpdateInformation.modele) }}
+        {{ form_row(UpdateInformation.num_serie) }}
+        {{ form_row(UpdateInformation.couleur) }}
+        {{ form_row(UpdateInformation.nb_kilometre) }}
+        {{ form_row(UpdateInformation.date_achat) }}
+        {{ form_row(UpdateInformation.prix_achat) }}
+        {{ form_row(UpdateInformation.Classe) }}
+    <a style="color:#2563EB" href="/politique_de_confidentialite">En validant mon opération, je clame que les informations me concernant sont exactes</a>
+    <input type="checkbox" name="valid_term" required/>
+        <br>
+    <button style="background-color: cyan;" type="submit" class="btn">Valider</button>
+    <button>
+        <a href="/espace_client">Annuler</a>
+    </button>
+    {{ form_end(UpdateInformation) }}
+</div>
+{% endblock %}

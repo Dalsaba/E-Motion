@@ -1,0 +1,29 @@
+{% block title %}Réserver un véhicule | E-Motion{% endblock %}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="w-full p-6 flex flex-col items-center flex-shrink">
+
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-grey-500">Faites votre réservation</h1>
+        <div class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800"> {{ vehicule.marque }} - {{ vehiculeClasseInfo.prix }} €/jour</div>
+        {# {{ form(ajout) }} #}
+
+        {{ form_start(ajout) }}
+        <div class="mt-6">
+            {{ form_row(ajout.DateDeDebut, {}) }}
+        </div>
+        <div class="mt-6">
+
+            {{ form_row(ajout.DateDeFin, {}) }}
+        </div>
+        <div
+            class="mx-auto w-3/3 lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+        >
+            {{ form_row(ajout.Sauvegarder, {}) }}
+        </div>
+
+        {{ form_end(ajout) }}
+
+    </div>
+{% endblock %}

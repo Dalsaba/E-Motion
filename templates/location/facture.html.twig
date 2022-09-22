@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facture | E-Motion{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+    <div class="example-wrapper">
+
+        {% if location %}
+        {% for l in location %}
+
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">Facture</h1>
+        <p>Numéro de facture : {{ l.id }}</p><br/><br/>
+
+        <table class="table w-full">
+            <thead>
+            <tr class="min-w-full">
+                <th class=""></th>
+                <th class=""></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>        <p><b>E-Motion</b>  </p>
+                    <p> 14 Av. de l'Europe</p>
+                    <p> 77144 Montévrain</p>
+                    <p> France</p></td>
+                <td>        <p><b>{{ clientNom }} {{ clientPrenom }}</b>  </p>
+                    <p> {{ clientAdresse }}</p>
+</td>
+            </tr>
+
+            </tbody>
+        </table> <br/><br/><br/>
+
+
+
+
+        <table class="table w-full border-4 border-sky-300">
+            <thead>
+            <tr class="min-w-full border-4 border-red-300">
+                <th class="border-4 border-sky-300">{{ 'Date de début' }}</th>
+                <th class="border-4 border-sky-300 ">{{ 'Date de fin' }}</th>
+                <th class="border-4 border-sky-300 ">{{ 'Vehicule' }}</th>
+                <th class="border-4 border-sky-300 ">{{ 'Prix' }}</th>
+            </tr>
+            </thead>
+            {% for v in l.VehiculeID %}
+
+            <tbody>
+
+            <tr>
+                <td>{{ l.DateDeDebut | date('d/m/Y') }}</td>
+                <td>{{ l.DateDeFin | date('d/m/Y') }}</td>
+                <td> ({{ v.marque }}) - {{ v.immatricule }}</td>
+                <td>{{ l.Prix }}</td>
+            </tr>
+
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
+
+
+            </tbody>
+        </table>
+        <button id="hide" class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                onclick="window.print()"> Imprimer
+        </button>
+
+<style>
+@media print {
+   #hide {
+      visibility: hidden;
+   }
+}
+</style>
+
+    </div>
+{% endblock %}

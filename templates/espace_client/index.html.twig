@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+{% block title %}Espace client | E-Motion{% endblock %}
+
+{% block body %}
+<section class="w-full">
+    <div class="container mx-auto flex flex-col flex-wrap items-center justify-center">
+        <h1 class="w-full mt-6 mb-2 text-5xl font-bold leading-tight text-center text-gray-800">
+            Espace client
+        </h1>
+        <div class="w-full mb-12">
+            <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+        </div>
+
+        <div class="max-w-7xl w-full mb-4 mx-auto flex flex-col items-center justify-center">
+            <h2 class="font-bold mb-8 text-3xl leading-tight text-center">Informations personnelles</h2>
+            <table class="w-3/4 table-auto border-4 border-sky-300 mb-4">
+                <thead>
+                    <tr class="min-w-full border-4 border-red-300">
+                        <th class="border-4 border-sky-300">Nom</th>
+                        <th class="border-4 border-sky-300">Prénom</th>
+                        <th class="border-4 border-sky-300">Email</th>
+                        <th class="border-4 border-sky-300">Adresse</th>
+                        <th class="border-4 border-sky-300">Téléphone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="">
+                        <td class="">{{app.user.nom}}</td>
+                        <td class="">{{app.user.prenom}}</td>
+                        <td class="">{{app.user.email}}</td>
+                        <td class="">{{app.user.adresse}}</td>
+                        <td class="">{{app.user.telephone}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                href="{{ path('app_modif_info', {id: app.user.id}) }}">
+                Modifier informations personnelles
+            </a>
+
+            <a class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+               href="{{ path('app_historique') }}">
+                Voir historique
+            </a>
+        </div>
+
+        <div class="max-w-7xl w-full mb-12 mx-auto flex flex-col items-center justify-center">
+            <h2 class="font-bold mb-4 text-3xl leading-tight">Espace Propriétaire</h2>
+            <p class="mb-12">Veuillez ajouter un véhicule pour pouvoir le mettre en location.</p>
+            <ul class="flex sm:flex-col lg:flex-row flex-wrap gap-x-12">
+                <li class="sm:w-full lg:w-auto">
+                    <a class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                        href="{{ path('app_ajout_vehicule',{id: app.user.id}) }}">
+                        Ajouter un véhicule
+                    </a>
+                </li>
+                <li class="sm:w-full lg:w-auto">
+                    <a class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                        href="{{ path('app_mes_vehicules',{id: app.user.id}) }}">
+                        Mes véhicules
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+</section>
+{% endblock %}
