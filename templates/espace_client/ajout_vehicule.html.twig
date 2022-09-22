@@ -3,8 +3,10 @@
 {% block title %}Ajouter un véhicule | E-Motion{% endblock %}
 
 {% block body %}
-<div>
-    <b><h1>Ajouter un véhicule</h1></b>
+<section>
+    <h1 class="w-full my-6 text-5xl font-bold leading-tight text-center text-gray-800">
+        Ajouter un véhicule
+    </h1>
      {{ form_start(Vehicule) }}
         {{ form_row(Vehicule.immatricule, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
         {{ form_row(Vehicule.marque, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
@@ -15,11 +17,26 @@
         {{ form_row(Vehicule.date_achat)}}
         {{ form_row(Vehicule.prix_achat, {'attr': {'class': "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"}} ) }}
         {{ form_row(Vehicule.Classe) }}
-        <a style="color:#2563EB" href="/cgv">Accepter les termes et conditions</a>
+        <a class="text-blue-500" href="{{ path('app_cgv') }}">Accepter les termes et conditions</a>
         <input type="checkbox" name="valid_term" required/>
         <br>
+<<<<<<< HEAD
         <button type="submit" class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Valider</button>
         <a href="{{path('app_user_space')}}">Annuler</a>
         {{ form_end(Vehicule) }}
 </div>
+=======
+        <div class="flex flex-wrap justify-between">
+           <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                type="submit">
+                    Valider
+            </button>
+            <a class="mx-auto lg:mx-0 hover:underline bg-red-700 text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                href="{{ path('app_user_space') }}">
+                Annuler
+            </a>
+        </div>
+    {{ form_end(Vehicule) }}
+</section>
+>>>>>>> 93631ba5c30f7b592b2f7cdf70602a065081b15a
 {% endblock %}
